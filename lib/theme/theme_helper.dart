@@ -5,6 +5,7 @@ LightCodeColors get appTheme => ThemeHelper().themeColor();
 ThemeData get theme => ThemeHelper().themeData();
 
 /// Helper class for managing themes and colors.
+/// ignore_for_file: must_be_immutable
 class ThemeHelper {
   // The current app theme
   final _appTheme = PrefUtils().getThemeData();
@@ -30,12 +31,16 @@ class ThemeHelper {
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       textTheme: TextThemes.textTheme(colorScheme),
-      scaffoldBackgroundColor: appTheme.black900,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primary,
+      scaffoldBackgroundColor: colorScheme.onPrimary,
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          side: BorderSide(
+            color: appTheme.gray200,
+            width: 1,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(12),
           ),
           visualDensity: const VisualDensity(
             vertical: -4,
@@ -44,22 +49,10 @@ class ThemeHelper {
           padding: EdgeInsets.zero,
         ),
       ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          side: BorderSide(
-            color: colorScheme.onPrimaryContainer.withOpacity(1),
-            width: 1,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          visualDensity: const VisualDensity(
-            vertical: -4,
-            horizontal: -4,
-          ),
-          padding: EdgeInsets.zero,
-        ),
+      dividerTheme: DividerThemeData(
+        thickness: 6,
+        space: 6,
+        color: appTheme.black900,
       ),
     );
   }
@@ -71,50 +64,44 @@ class ThemeHelper {
   ThemeData themeData() => _getThemeData();
 }
 
-/// Class containing the supported text theme styles.
+// Class containing the supported text theme styles.
 class TextThemes {
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
         bodyLarge: TextStyle(
-          color: colorScheme.onPrimaryContainer.withOpacity(1),
-          fontSize: 16.fSize,
-          fontFamily: 'Roboto',
+          color: appTheme.gray60001,
+          fontSize: 17.fSize,
+          fontFamily: 'Inter',
           fontWeight: FontWeight.w400,
         ),
-        bodyMedium: TextStyle(
-          color: appTheme.gray400,
-          fontSize: 14.fSize,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w400,
+        displayLarge: TextStyle(
+          color: colorScheme.onPrimary,
+          fontSize: 64.fSize,
+          fontFamily: 'Arial',
+          fontWeight: FontWeight.w900,
         ),
-        bodySmall: TextStyle(
-          color: appTheme.gray40001,
-          fontSize: 12.fSize,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w400,
+        displayMedium: TextStyle(
+          color: colorScheme.primary,
+          fontSize: 48.fSize,
+          fontFamily: 'Arial',
+          fontWeight: FontWeight.w700,
         ),
-        headlineMedium: TextStyle(
-          color: colorScheme.onPrimaryContainer.withOpacity(1),
-          fontSize: 28.fSize,
-          fontFamily: 'Roboto',
+        displaySmall: TextStyle(
+          color: colorScheme.primary,
+          fontSize: 36.fSize,
+          fontFamily: 'Arial',
+          fontWeight: FontWeight.w700,
+        ),
+        headlineLarge: TextStyle(
+          color: appTheme.black900.withOpacity(0.4),
+          fontSize: 32.fSize,
+          fontFamily: 'Inter',
           fontWeight: FontWeight.w500,
         ),
         headlineSmall: TextStyle(
-          color: colorScheme.onPrimaryContainer.withOpacity(1),
+          color: colorScheme.onPrimary,
           fontSize: 24.fSize,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w700,
-        ),
-        titleLarge: TextStyle(
-          color: colorScheme.onPrimaryContainer.withOpacity(1),
-          fontSize: 20.fSize,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w500,
-        ),
-        titleMedium: TextStyle(
-          color: colorScheme.onPrimaryContainer.withOpacity(1),
-          fontSize: 18.fSize,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w500,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w600,
         ),
       );
 }
@@ -122,23 +109,30 @@ class TextThemes {
 /// Class containing the supported color schemes.
 class ColorSchemes {
   static const lightCodeColorScheme = ColorScheme.light(
-    primary: Color(0XFF757575),
-    primaryContainer: Color(0XFF2F2F2F),
-    secondaryContainer: Color(0XFF2AD78B),
-    onError: Color(0XFF2E635B),
-    onPrimary: Color(0XFF0C0C0C),
-    onPrimaryContainer: Color(0X82FFFFFF),
+    primary: Color(0XFF007C16),
+    onPrimary: Color(0XFFFFFFFF),
+    onPrimaryContainer: Color(0XFFB60000),
   );
 }
 
 /// Class containing custom colors for a lightCode theme.
 class LightCodeColors {
+  // White
+  Color get white => const Color(0XFFFFFFFF);
+
   // Black
   Color get black900 => const Color(0XFF000000);
 // BlueGray
-  Color get blueGray400 => const Color(0XFF8C8C8C);
-  Color get blueGray40001 => const Color(0XFF888888);
+  Color get blueGray100 => const Color(0XFFD9D9D9);
 // Gray
-  Color get gray400 => const Color(0XFFAFAFAF);
-  Color get gray40001 => const Color(0XFFC6C6C6);
+  Color get gray100 => const Color(0XFFF3F4F4);
+  Color get gray200 => const Color(0XFFE8E6EA);
+  Color get gray600 => const Color(0XFF79797A);
+  Color get gray60001 => const Color(0XFF858585);
+// Green
+  Color get green900 => const Color(0XFF008000);
+// Lime
+  Color get lime800 => const Color(0XFFBC903E);
+// Yellow
+  Color get yellow800 => const Color(0XFFDB9E3B);
 }

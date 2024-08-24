@@ -3,13 +3,35 @@ import 'package:flutter/services.dart';
 import 'core/app_export.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
-void main() {
+void main() async {
+  Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  await HiveBox.initHive();
+
   Future.wait([
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]),
     PrefUtils().init()
   ]).then((value) {
-    runApp(const MyApp());
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (c) => PreferenceProvider(c)),
+          ChangeNotifierProvider(create: (c) => ConnectivityProvider(c)),
+          ChangeNotifierProvider(create: (c) => ApiProvider(c)),
+          ChangeNotifierProvider(create: (c) => AuthenticationProvider(c)),
+          ChangeNotifierProvider(create: (c) => SplashProvider(c)),
+          //
+        ],
+        child: const MyApp(),
+      ),
+    );
   });
 }
 

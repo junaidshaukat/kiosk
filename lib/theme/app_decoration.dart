@@ -2,63 +2,56 @@ import 'package:flutter/material.dart';
 import '/core/app_export.dart';
 
 class AppDecoration {
-  // Black decorations
-  static BoxDecoration get black => BoxDecoration(
-        color: appTheme.black900,
+  // Fill decorations
+  static BoxDecoration get fillOnPrimary => BoxDecoration(
+        color: theme.colorScheme.onPrimary,
       );
-// Extra decorations
-  static BoxDecoration get extra => BoxDecoration(
-        color: theme.colorScheme.onError,
+// Outline decorations
+  static BoxDecoration get outlinePrimary => BoxDecoration(
+        color: theme.colorScheme.onPrimary,
+        border: Border.all(
+          color: theme.colorScheme.primary,
+          width: 1.h,
+        ),
       );
-// Fill decorations
-  static BoxDecoration get fillOnPrimaryContainer => BoxDecoration(
-        color: theme.colorScheme.onPrimaryContainer.withOpacity(0.3),
+  static BoxDecoration get outlinePrimary1 => BoxDecoration(
+        border: Border.all(
+          color: theme.colorScheme.primary,
+          width: 4.h,
+        ),
       );
-  static BoxDecoration get fillOnPrimaryContainer1 => BoxDecoration(
-        color: theme.colorScheme.onPrimaryContainer.withOpacity(1),
+  static BoxDecoration get outlinePrimary2 => BoxDecoration(
+        color: theme.colorScheme.onPrimary,
+        border: Border.all(
+          color: theme.colorScheme.primary,
+          width: 4.h,
+        ),
       );
-  static BoxDecoration get fillPrimaryContainer => BoxDecoration(
-        color: theme.colorScheme.primaryContainer,
+// Primary decorations
+  static BoxDecoration get primary => BoxDecoration(
+        color: theme.colorScheme.primary,
       );
-// Gradient decorations
-  static BoxDecoration get gradientBlackToBlack => BoxDecoration(
-        gradient: LinearGradient(
-          begin: const Alignment(0.5, 0.36),
-          end: const Alignment(0.5, 1),
-          colors: [appTheme.black900.withOpacity(0), appTheme.black900],
+// White decorations
+  static BoxDecoration get whiteFFFFFF => BoxDecoration(
+        border: Border.all(
+          color: appTheme.gray200,
+          width: 1.h,
         ),
       );
 }
 
 class BorderRadiusStyle {
-  // Circle borders
-  static BorderRadius get circleBorder38 => BorderRadius.circular(
-        38.h,
-      );
-  static BorderRadius get circleBorder68 => BorderRadius.circular(
-        68.h,
-      );
-// Custom borders
-  static BorderRadius get customBorderBL8 => BorderRadius.vertical(
-        bottom: Radius.circular(8.h),
-      );
-  static BorderRadius get customBorderTL29 => BorderRadius.vertical(
-        top: Radius.circular(29.h),
-      );
-// Rounded borders
+  // Rounded borders
   static BorderRadius get roundedBorder12 => BorderRadius.circular(
         12.h,
       );
-  static BorderRadius get roundedBorder29 => BorderRadius.circular(
-        29.h,
+  static BorderRadius get roundedBorder20 => BorderRadius.circular(
+        20.h,
       );
-  static BorderRadius get roundedBorder4 => BorderRadius.circular(
-        4.h,
+  static BorderRadius get roundedBorder5 => BorderRadius.circular(
+        5.h,
       );
-  static BorderRadius get roundedBorder48 => BorderRadius.circular(
-        48.h,
-      );
-  static BorderRadius get roundedBorder9 => BorderRadius.circular(
-        9.h,
+  static BorderRadius get roundedBorder70 => BorderRadius.circular(
+        70.h,
       );
 }
