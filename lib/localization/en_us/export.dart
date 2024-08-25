@@ -3,6 +3,7 @@ final Map<String, String> enUs = {
   "lbl_email": "Email",
   "lbl_password": "Password",
   "lbl_sign_in": "Sign in",
+  "lbl_fogot_password": "Forgot Password?",
   "msg_forgot_your_login": "Forgot your login or password?",
 
   /// Network Error String

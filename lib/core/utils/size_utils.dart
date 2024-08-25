@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+
+import 'console.dart';
 // These are the Viewport values of your Figma Design.
 
 // These are used in the code as a reference to create your UI Responsively.
-const num fdw = 390;
-const num fdh = 844;
+num fdw = 1080;
+num fdh = 1550;
+num columns = 4;
+double gutter = 16;
+
 const num fdsb = 0;
 
 extension ResponsiveExtension on num {
   double get _width => SizeUtils.width;
   double get _height => SizeUtils.height;
+
   double get h => ((this * _width) / fdw);
   double get v => (this * _height) / (fdh - fdsb);
   double get adaptSize {
@@ -44,6 +50,54 @@ class Sizer extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
+        double breakpoints = 0.0;
+
+        if (orientation == Orientation.portrait) {
+          breakpoints = MediaQuery.of(context).size.width;
+        }
+
+        if (orientation == Orientation.landscape) {
+          breakpoints = MediaQuery.of(context).size.height;
+        }
+
+        console.log({
+          'breakpoints': breakpoints,
+          'size': MediaQuery.of(context).size,
+          'orientation': orientation,
+        });
+
+        if (breakpoints >= 0 && breakpoints <= 599) {
+          columns = 4;
+          gutter = 16;
+
+          fdw = 393;
+          fdh = 852;
+        } else if (breakpoints >= 600 && breakpoints <= 904) {
+          columns = 8;
+          gutter = 16;
+
+          fdw = 430;
+          fdh = 932;
+        } else if (breakpoints >= 905 && breakpoints <= 1239) {
+          columns = 12;
+          gutter = 24;
+
+          fdw = 744;
+          fdh = 960;
+        } else if (breakpoints >= 1240 && breakpoints <= 1439) {
+          columns = 12;
+          gutter = 24;
+
+          fdw = 840;
+          fdh = 720;
+        } else {
+          columns = 12;
+          gutter = 32;
+
+          fdw = 1280;
+          fdh = 720;
+        }
+
         SizeUtils.setScreenSize(constraints, orientation);
         return builder(context, orientation, SizeUtils.deviceType);
       });
