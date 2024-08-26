@@ -42,50 +42,69 @@ class SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
+        body: StaggerColumn(
           children: [
-            Container(
-              height: 250.v,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage('bg@2'.image.png),
+            ClipPath(
+              clipper: CurvedBottomClipper(),
+              child: Container(
+                height: 350.v,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  color: appTheme.green900,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('stars'.image.png),
+                  ),
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Text(
+                      "lbl_log_in".tr,
+                      style: TextStyles.displayLarge.copyWith(
+                        fontSize: 34.fSize,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(gutter),
-              child: Column(
-                children: [
-                  _buildInput(
-                    hintText: "lbl_password".tr,
-                    controller: passwordController,
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-                  SizedBox(height: 12.v),
-                  _buildInput(
-                    hintText: "lbl_password".tr,
-                    controller: passwordController,
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-                  SizedBox(height: 12.v),
-                  _buildButton(),
-                  SizedBox(height: 12.v),
-                  SizedBox(
-                    width: 158.h,
-                    child: Text(
-                      "lbl_fogot_password".tr,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: TextStyles.headlineMedium.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(gutter),
+                child: StaggerColumn(
+                  children: [
+                    _buildInput(
+                      hintText: "lbl_password".tr,
+                      controller: passwordController,
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.visiblePassword,
                     ),
-                  )
-                ],
+                    SizedBox(height: 12.v),
+                    _buildInput(
+                      hintText: "lbl_password".tr,
+                      controller: passwordController,
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.visiblePassword,
+                    ),
+                    SizedBox(height: 12.v),
+                    _buildButton(),
+                    SizedBox(height: 12.v),
+                    SizedBox(
+                      width: 158.h,
+                      child: Text(
+                        "lbl_fogot_password".tr,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyles.headlineMedium.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

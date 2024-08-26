@@ -40,6 +40,7 @@ class PreferenceProvider with ChangeNotifier {
   String get baseUrl => 'https://donorapi.mervice.ca';
 
   String get version => box.get('version', defaultValue: '');
+  int get flow => box.get('flow', defaultValue: 1);
 
   /// Helper function to convert nested maps
   Map<String, dynamic> _convertNestedMap(Map<dynamic, dynamic> map) {

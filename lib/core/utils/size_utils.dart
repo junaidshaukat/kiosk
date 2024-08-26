@@ -4,12 +4,13 @@ import 'console.dart';
 // These are the Viewport values of your Figma Design.
 
 // These are used in the code as a reference to create your UI Responsively.
-num fdw = 1080;
-num fdh = 1550;
+num fdw = 393;
+num fdh = 852;
+
 num columns = 4;
 double gutter = 16;
 
-const num fdsb = 0;
+num fdsb = 0;
 
 extension ResponsiveExtension on num {
   double get _width => SizeUtils.width;
@@ -17,6 +18,7 @@ extension ResponsiveExtension on num {
 
   double get h => ((this * _width) / fdw);
   double get v => (this * _height) / (fdh - fdsb);
+
   double get adaptSize {
     var height = v;
     var width = h;
@@ -129,11 +131,13 @@ class SizeUtils {
     boxConstraints = constraints;
     orientation = currentOrientation;
     if (orientation == Orientation.portrait) {
-      width = boxConstraints.maxWidth.isNonZero(defaultValue: fdw);
       height = boxConstraints.maxHeight.isNonZero();
+      width = boxConstraints.maxWidth.isNonZero(defaultValue: fdw);
     } else {
-      width = boxConstraints.maxHeight.isNonZero(defaultValue: fdw);
-      height = boxConstraints.maxWidth.isNonZero();
+      // width = boxConstraints.maxHeight.isNonZero(defaultValue: fdw);
+      // height = boxConstraints.maxWidth.isNonZero();
+      height = boxConstraints.maxHeight.isNonZero();
+      width = boxConstraints.maxWidth.isNonZero(defaultValue: fdw);
     }
     deviceType = DeviceType.mobile;
   }

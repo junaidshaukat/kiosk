@@ -66,38 +66,40 @@ class ThemeHelper {
 
 // Class containing the supported text theme styles.
 class TextThemes {
-  static TextTheme textTheme(ColorScheme colorScheme) {return TextTheme(
-        bodyLarge: TextStyle(
-         fontFamily: 'Poppins',
-color: appTheme.gray60001,
-fontWeight: FontWeight.w400,
-        ),
-        displayLarge: TextStyle(
-          fontFamily: 'Poppins',
-fontWeight: FontWeight.w900,
-color: colorScheme.onPrimary,
-        ),
-        displayMedium: TextStyle(
-          fontFamily: 'Poppins',
-color: colorScheme.primary,
-fontWeight: FontWeight.w700,
-        ),
-        displaySmall: TextStyle(
-          fontFamily: 'Poppins',
-color: colorScheme.primary,
-fontWeight: FontWeight.w700,
-        ),
-        headlineLarge: TextStyle(
-          fontFamily: 'Poppins',
-fontWeight: FontWeight.w500,
-color: appTheme.black900.withOpacity(0.4),
-        ),
-        headlineSmall: TextStyle(
-          fontFamily: 'Poppins',
-fontWeight: FontWeight.w600,
-color: colorScheme.onPrimary,
-        ),
-      );}
+  static TextTheme textTheme(ColorScheme colorScheme) {
+    return TextTheme(
+      bodyLarge: TextStyle(
+        fontFamily: 'Poppins',
+        color: appTheme.gray60001,
+        fontWeight: FontWeight.w400,
+      ),
+      displayLarge: TextStyle(
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w900,
+        color: colorScheme.onPrimary,
+      ),
+      displayMedium: TextStyle(
+        fontFamily: 'Poppins',
+        color: colorScheme.primary,
+        fontWeight: FontWeight.w700,
+      ),
+      displaySmall: TextStyle(
+        fontFamily: 'Poppins',
+        color: colorScheme.primary,
+        fontWeight: FontWeight.w700,
+      ),
+      headlineLarge: TextStyle(
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w500,
+        color: appTheme.black900.withOpacity(0.4),
+      ),
+      headlineSmall: TextStyle(
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w600,
+        color: colorScheme.onPrimary,
+      ),
+    );
+  }
 }
 
 /// Class containing the supported color schemes.
@@ -111,22 +113,30 @@ class ColorSchemes {
 
 /// Class containing custom colors for a lightCode theme.
 class LightCodeColors {
+  ///
+  Color get primary => const Color(0XFF007C16);
+
   /// White
   Color get white => const Color(0XFFFFFFFF);
 
   /// Black
   Color get black900 => const Color(0XFF000000);
-/// BlueGray
+
+  /// BlueGray
   Color get blueGray100 => const Color(0XFFD9D9D9);
-/// Gray
+
+  /// Gray
   Color get gray100 => const Color(0XFFF3F4F4);
   Color get gray200 => const Color(0XFFE8E6EA);
   Color get gray600 => const Color(0XFF79797A);
   Color get gray60001 => const Color(0XFF858585);
-/// Green
+
+  /// Green
   Color get green900 => const Color(0XFF008000);
-/// Lime
+
+  /// Lime
   Color get lime800 => const Color(0XFFBC903E);
-/// Yellow
+
+  /// Yellow
   Color get yellow800 => const Color(0XFFDB9E3B);
 }

@@ -15,10 +15,6 @@ class NavigatorService {
     return navigatorKey.currentState?.pop();
   }
 
-  static void pop() {
-    return navigatorKey.currentState?.pop();
-  }
-
   static Future<dynamic> pushNamedAndRemoveUntil(
     String routeName, {
     bool routePredicate = false,
@@ -39,6 +35,29 @@ class NavigatorService {
 
   static void push(BuildContext context, Widget child, {Object? arguments}) {
     Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return child;
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          );
+        },
+        settings: RouteSettings(
+          arguments: arguments,
+        ),
+      ),
+    );
+  }
+
+  static void pop(BuildContext context, Widget child, {Object? arguments}) {
+    Navigator.pop(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {

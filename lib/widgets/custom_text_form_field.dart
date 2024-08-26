@@ -72,21 +72,21 @@ class Input extends StatelessWidget {
         suffixIconConstraints: suffixIconConstraints,
         hintStyle: hintStyle ?? theme.textTheme.bodyLarge,
         fillColor: fillColor ?? theme.colorScheme.onPrimary,
-        contentPadding: contentPadding ?? EdgeInsets.all(12.h),
+        contentPadding: contentPadding ?? EdgeInsets.all(12.adaptSize),
         border: borderDecoration ??
             OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(9.h),
+              borderRadius: BorderRadius.circular(9.adaptSize),
             ),
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(9.h),
+              borderRadius: BorderRadius.circular(9.adaptSize),
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(9.h),
+              borderRadius: BorderRadius.circular(9.adaptSize),
             ),
       ),
     );
