@@ -2,23 +2,27 @@ import 'package:flutter/material.dart';
 import '/core/app_export.dart';
 
 class CustomElevatedButton extends StatelessWidget {
+  final Size? size;
   final String name;
+  final double? width;
+  final double? height;
   final ButtonStyle? style;
-  final void Function()? onPressed;
+  final TextStyle? textStyle;
   final Color? foregroundColor;
   final Color? backgroundColor;
-  final TextStyle? textStyle;
-  final Size? size;
+  final void Function()? onPressed;
 
   const CustomElevatedButton({
     super.key,
+    this.size,
     this.style,
+    this.width,
+    this.height,
     this.onPressed,
+    this.textStyle,
     required this.name,
     this.foregroundColor,
     this.backgroundColor,
-    this.textStyle,
-    this.size,
   });
 
   @override
@@ -28,8 +32,8 @@ class CustomElevatedButton extends StatelessWidget {
         textStyle: textStyle,
         foregroundColor: foregroundColor ?? appTheme.white,
         backgroundColor: backgroundColor ?? appTheme.green900,
-        minimumSize: size ?? Size(double.maxFinite, 50.v),
-        maximumSize: size ?? Size(double.maxFinite, 50.v),
+        minimumSize: size ?? Size(width ?? double.maxFinite, height ?? 50.v),
+        maximumSize: size ?? Size(width ?? double.maxFinite, height ?? 50.v),
       ),
       onPressed: onPressed,
       child: Text(name),

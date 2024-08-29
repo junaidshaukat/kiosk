@@ -1,22 +1,20 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '/core/app_export.dart';
 
-import 'console.dart';
-// These are the Viewport values of your Figma Design.
-
-// These are used in the code as a reference to create your UI Responsively.
-num fdw = 393;
-num fdh = 852;
-
-num columns = 4;
-double gutter = 16;
-
-num fdsb = 0;
+num fdw = 1194; // reference width
+num fdh = 834; // reference height
+num fdsb = 0; // reference status bar height
 
 extension ResponsiveExtension on num {
   double get _width => SizeUtils.width;
   double get _height => SizeUtils.height;
 
+  // Horizontal scaling factor
   double get h => ((this * _width) / fdw);
+
+  // Vertical scaling factor
   double get v => (this * _height) / (fdh - fdsb);
 
   double get adaptSize {
@@ -26,6 +24,60 @@ extension ResponsiveExtension on num {
   }
 
   double get fSize => adaptSize;
+
+  num get deviceWidth {
+    if (this <= 240) {
+      return 200;
+    } else if (this <= 320) {
+      return 240;
+    } else if (this <= 480) {
+      return 320;
+    } else if (this <= 800) {
+      return 480;
+    } else if (this <= 1280) {
+      return 800;
+    } else if (this <= 1920) {
+      return 1280;
+    } else if (this <= 2560) {
+      return 1920;
+    } else if (this <= 3840) {
+      return 2560;
+    } else if (this <= 5120) {
+      return 3840;
+    } else if (this <= 6016) {
+      return 5120;
+    } else if (this <= 7680) {
+      return 6016;
+    } else {
+      return 7680;
+    }
+  }
+
+  num get deviceHeight {
+    if (this <= 360) {
+      return 300;
+    } else if (this <= 480) {
+      return 360;
+    } else if (this <= 720) {
+      return 480;
+    } else if (this <= 800) {
+      return 720;
+    } else if (this <= 1080) {
+      return 800;
+    } else if (this <= 1440) {
+      return 1080;
+    } else if (this <= 2160) {
+      return 1440;
+    } else if (this <= 2880) {
+      return 2160;
+    } else if (this <= 3384) {
+      return 2880;
+    } else if (this <= 4320) {
+      return 3384;
+    } else {
+      return 4320;
+    }
+  }
 }
 
 extension FormatExtension on double {
@@ -40,70 +92,54 @@ extension FormatExtension on double {
 
 enum DeviceType { mobile, tablet, desktop }
 
+enum PlatformType { android, ios, fuchsia, linux, macos, windows, other, web }
+
+PlatformType get getPlatform {
+  if (kIsWeb) {
+    return PlatformType.web;
+  } else if (Platform.isAndroid) {
+    return PlatformType.android;
+  } else if (Platform.isIOS) {
+    return PlatformType.ios;
+  } else if (Platform.isFuchsia) {
+    return PlatformType.fuchsia;
+  } else if (Platform.isLinux) {
+    return PlatformType.linux;
+  } else if (Platform.isMacOS) {
+    return PlatformType.macos;
+  } else if (Platform.isWindows) {
+    return PlatformType.windows;
+  } else {
+    return PlatformType.other;
+  }
+}
+
 typedef ResponsiveBuild = Widget Function(
-    BuildContext context, Orientation orientation, DeviceType deviceType);
+  BuildContext context,
+  Orientation orientation,
+  DeviceType deviceType,
+);
 
 class Sizer extends StatelessWidget {
   const Sizer({super.key, required this.builder});
 
   /// Builds the widget whenever the orientation changes.
   final ResponsiveBuild builder;
+
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return OrientationBuilder(builder: (context, orientation) {
-        double breakpoints = 0.0;
+    buildContext = context;
 
-        if (orientation == Orientation.portrait) {
-          breakpoints = MediaQuery.of(context).size.width;
-        }
-
-        if (orientation == Orientation.landscape) {
-          breakpoints = MediaQuery.of(context).size.height;
-        }
-
-        console.log({
-          'breakpoints': breakpoints,
-          'size': MediaQuery.of(context).size,
-          'orientation': orientation,
-        });
-
-        if (breakpoints >= 0 && breakpoints <= 599) {
-          columns = 4;
-          gutter = 16;
-
-          fdw = 393;
-          fdh = 852;
-        } else if (breakpoints >= 600 && breakpoints <= 904) {
-          columns = 8;
-          gutter = 16;
-
-          fdw = 430;
-          fdh = 932;
-        } else if (breakpoints >= 905 && breakpoints <= 1239) {
-          columns = 12;
-          gutter = 24;
-
-          fdw = 744;
-          fdh = 960;
-        } else if (breakpoints >= 1240 && breakpoints <= 1439) {
-          columns = 12;
-          gutter = 24;
-
-          fdw = 840;
-          fdh = 720;
-        } else {
-          columns = 12;
-          gutter = 32;
-
-          fdw = 1280;
-          fdh = 720;
-        }
-
-        SizeUtils.setScreenSize(constraints, orientation);
-        return builder(context, orientation, SizeUtils.deviceType);
-      });
-    });
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            SizeUtils.setScreenSize(context, constraints, orientation);
+            return builder(context, orientation, SizeUtils.deviceType);
+          },
+        );
+      },
+    );
   }
 }
 
@@ -124,21 +160,40 @@ class SizeUtils {
 
   /// Device's Width
   static late double width;
+
+  /// Status bar height
+  static late double statusBarHeight;
+
   static void setScreenSize(
+    BuildContext context,
     BoxConstraints constraints,
     Orientation currentOrientation,
   ) {
     boxConstraints = constraints;
     orientation = currentOrientation;
+    statusBarHeight = MediaQuery.of(context).padding.top;
+    setResolutions(orientation, MediaQuery.of(context).size);
+
     if (orientation == Orientation.portrait) {
       height = boxConstraints.maxHeight.isNonZero();
       width = boxConstraints.maxWidth.isNonZero(defaultValue: fdw);
     } else {
-      // width = boxConstraints.maxHeight.isNonZero(defaultValue: fdw);
-      // height = boxConstraints.maxWidth.isNonZero();
-      height = boxConstraints.maxHeight.isNonZero();
-      width = boxConstraints.maxWidth.isNonZero(defaultValue: fdw);
+      height = boxConstraints.maxWidth.isNonZero();
+      width = boxConstraints.maxHeight.isNonZero(defaultValue: fdh);
     }
-    deviceType = DeviceType.mobile;
+    deviceType = _getDeviceType();
+  }
+
+  static setResolutions(Orientation orientation, Size size) {
+    fdw = size.width.deviceWidth;
+    fdh = size.height.deviceHeight;
+  }
+
+  static DeviceType _getDeviceType() {
+    if (boxConstraints.maxWidth >= 600) {
+      return DeviceType.tablet;
+    } else {
+      return DeviceType.mobile;
+    }
   }
 }

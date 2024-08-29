@@ -1,8 +1,11 @@
 export './custom_path.dart';
+export './custom_slider.dart';
 export './app_bar/export.dart';
+export 'custom_preloader.dart';
+export './custom_stepper.dart';
+export './custom_divider.dart';
 export './custom_staggered.dart';
 export './custom_image_view.dart';
-export 'custom_preloader.dart';
 export './custom_icon_button.dart';
 export './custom_elevated_button.dart';
 export './custom_outlined_button.dart';

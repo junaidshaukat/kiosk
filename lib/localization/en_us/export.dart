@@ -12,8 +12,20 @@ final Map<String, String> enUs = {
   "lbl_donate_now": "Donate Now",
   "msg_click_here_to_learn": "Click here to learn ",
 
+  ///Selection Screen
+  "msg_choose_your_cause": "Choose Your Cause",
+  "msg_mosque_construction_in": "Mosque Construction in new jersey",
+
   ///Common
   "lbl_continue": "Continue",
+  "lbl_campaign": "Campaign",
+  "lbl_amount": "Amount",
+  "lbl_payment": "Payment",
+  "lbl_review": "Review",
+  "lbl_next": "Next",
+  "lbl_cancel": "Cancel",
+  "lbl_back": "Back",
+  "lbl_confirm": "Confirm",
 
   /// Network Error String
   "msg_network_err": "Network Error",

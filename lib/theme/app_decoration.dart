@@ -11,20 +11,20 @@ class AppDecoration {
         color: theme.colorScheme.onPrimary,
         border: Border.all(
           color: theme.colorScheme.primary,
-          width: 1.h,
+          width: 1.adaptSize,
         ),
       );
   static BoxDecoration get outlinePrimary1 => BoxDecoration(
         border: Border.all(
           color: theme.colorScheme.primary,
-          width: 4.h,
+          width: 4.adaptSize,
         ),
       );
   static BoxDecoration get outlinePrimary2 => BoxDecoration(
         color: theme.colorScheme.onPrimary,
         border: Border.all(
           color: theme.colorScheme.primary,
-          width: 4.h,
+          width: 4.adaptSize,
         ),
       );
 // Primary decorations
@@ -35,7 +35,7 @@ class AppDecoration {
   static BoxDecoration get whiteFFFFFF => BoxDecoration(
         border: Border.all(
           color: appTheme.gray200,
-          width: 1.h,
+          width: 1.adaptSize,
         ),
       );
 }
@@ -43,15 +43,15 @@ class AppDecoration {
 class BorderRadiusStyle {
   // Rounded borders
   static BorderRadius get roundedBorder12 => BorderRadius.circular(
-        12.h,
+        12.adaptSize,
       );
   static BorderRadius get roundedBorder20 => BorderRadius.circular(
-        20.h,
+        20.adaptSize,
       );
   static BorderRadius get roundedBorder5 => BorderRadius.circular(
-        5.h,
+        5.adaptSize,
       );
   static BorderRadius get roundedBorder70 => BorderRadius.circular(
-        70.h,
+        70.adaptSize,
       );
 }

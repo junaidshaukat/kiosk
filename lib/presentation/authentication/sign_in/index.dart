@@ -33,8 +33,13 @@ class SigninScreenState extends State<SigninScreen> {
 
   Widget _buildButton() {
     return CustomElevatedButton(
-      name: "lbl_sign_in".tr,
       onPressed: () {},
+      width: 633.adaptSize,
+      height: 106.adaptSize,
+      name: "lbl_sign_in".tr,
+      textStyle: TextStyles.displayMedium.copyWith(
+        fontSize: 32.fSize,
+      ),
     );
   }
 
@@ -42,7 +47,7 @@ class SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: StaggerColumn(
+        body: Column(
           children: [
             ClipPath(
               clipper: CurvedBottomClipper(),
@@ -72,8 +77,8 @@ class SigninScreenState extends State<SigninScreen> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(gutter),
-                child: StaggerColumn(
+                padding: EdgeInsets.all(16.h),
+                child: Column(
                   children: [
                     _buildInput(
                       hintText: "lbl_password".tr,

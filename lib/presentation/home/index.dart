@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '/core/app_export.dart';
 
-export './selection/index.dart';
+export 'campaign/index.dart';
+export 'amount/index.dart';
+export 'payment/index.dart';
+export 'review/index.dart';
+export 'widgets/export.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,36 +29,40 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (flow == 3) {
-      return SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(gutter),
-            child: StaggerColumn(
-              children: [
-                SizedBox(height: 24.h),
-                CustomImageView(
-                  imagePath: 'mosque@1'.image.png,
-                  height: 258.h,
-                  width: 258.h,
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 34.v),
+              CustomImageView(
+                width: 258.adaptSize,
+                height: 258.adaptSize,
+                imagePath: 'mosque@1'.image.png,
+              ),
+              SizedBox(height: 24.v),
+              Text(
+                "lbl_click_to_begin".tr,
+                textAlign: TextAlign.center,
+                style: TextStyles.displayLarge.copyWith(
+                  fontSize: 96.fSize,
+                  color: appTheme.primary,
+                  fontWeight: FontWeight.w700,
                 ),
-                SizedBox(height: 24.h),
-                Text(
-                  "lbl_click_to_begin".tr,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.displayLarge.copyWith(
-                    fontSize: 48.fSize,
-                    color: appTheme.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
+              ),
+              SizedBox(height: 18.v),
+              Container(
+                width: 673.h,
+                height: 164.v,
+                decoration: AppDecoration.primary.copyWith(
+                  borderRadius: BorderRadiusStyle.roundedBorder20,
                 ),
-                SizedBox(height: 18.h),
-                Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.symmetric(vertical: 28.h),
-                  decoration: AppDecoration.primary.copyWith(
-                    borderRadius: BorderRadiusStyle.roundedBorder20,
-                  ),
+                child: InkWell(
+                  onTap: () {
+                    NavigatorService.push(context, const CampaignScreen());
+                  },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +70,7 @@ class HomeScreenState extends State<HomeScreen> {
                       Text(
                         "lbl_donate_now".tr,
                         style: TextStyles.displayLarge.copyWith(
-                          fontSize: 44.fSize,
+                          fontSize: 64.fSize,
                           color: appTheme.white,
                           fontWeight: FontWeight.w700,
                         ),
@@ -70,84 +78,20 @@ class HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 48.h),
-                Text(
-                  "msg_click_here_to_learn".tr,
-                  style: TextStyles.displaySmall.copyWith(
-                    fontSize: 38.fSize,
-                    color: appTheme.yellow800,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
+              ),
+              SizedBox(height: 48.v),
+              Text(
+                "msg_click_here_to_learn".tr,
+                style: TextStyles.displaySmall.copyWith(
+                  fontSize: 36.fSize,
+                  color: appTheme.yellow800,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
           ),
         ),
-      );
-    } else {
-      return SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(gutter),
-            child: StaggerColumn(
-              children: [
-                SizedBox(height: 34.adaptSize),
-                CustomImageView(
-                  width: 258.adaptSize,
-                  height: 258.adaptSize,
-                  imagePath: 'mosque@1'.image.png,
-                ),
-                SizedBox(height: 24.adaptSize),
-                Text(
-                  "lbl_click_to_begin".tr,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.displayLarge.copyWith(
-                    fontSize: 96.fSize,
-                    color: appTheme.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 18.adaptSize),
-                Container(
-                  width: 164.adaptSize,
-                  padding: EdgeInsets.symmetric(vertical: 28.adaptSize),
-                  decoration: AppDecoration.primary.copyWith(
-                    borderRadius: BorderRadiusStyle.roundedBorder20,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      NavigatorService.push(context, SelectionScreen());
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "lbl_donate_now".tr,
-                          style: TextStyles.displayLarge.copyWith(
-                            fontSize: 44.fSize,
-                            color: appTheme.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 48.adaptSize),
-                Text(
-                  "msg_click_here_to_learn".tr,
-                  style: TextStyles.displaySmall.copyWith(
-                    fontSize: 38.fSize,
-                    color: appTheme.yellow800,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
 }

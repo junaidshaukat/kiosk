@@ -36,7 +36,12 @@ class FlowScreenState extends State<FlowScreen> {
 
   Widget _buildButton() {
     return CustomElevatedButton(
+      width: 500.adaptSize,
+      height: 58.adaptSize,
       name: "lbl_continue".tr,
+      textStyle: TextStyles.displayMedium.copyWith(
+        fontSize: 28.adaptSize,
+      ),
       onPressed: () async {
         await provider.put('flow', groupValue);
         if (groupValue == 3) {
@@ -52,12 +57,12 @@ class FlowScreenState extends State<FlowScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: StaggerColumn(
+        body: Column(
           children: [
             ClipPath(
               clipper: CurvedBottomClipper(),
               child: Container(
-                height: 350.v,
+                height: 400.adaptSize,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: appTheme.green900,
@@ -72,8 +77,8 @@ class FlowScreenState extends State<FlowScreen> {
                     Text(
                       "lbl_log_in".tr,
                       style: TextStyles.displayLarge.copyWith(
-                        fontSize: 34.fSize,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 65.fSize,
+                        color: appTheme.white,
                       ),
                     ),
                   ],
@@ -82,8 +87,8 @@ class FlowScreenState extends State<FlowScreen> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(gutter),
-                child: StaggerColumn(
+                padding: EdgeInsets.all(8.adaptSize),
+                child: Column(
                   children: [
                     _buildOption(
                       value: 1,
@@ -94,7 +99,7 @@ class FlowScreenState extends State<FlowScreen> {
                         setState(() {});
                       },
                     ),
-                    SizedBox(height: 12.adaptSize),
+                    SizedBox(height: 6.adaptSize),
                     _buildOption(
                       value: 2,
                       label: "Flow 2".tr,
@@ -104,7 +109,7 @@ class FlowScreenState extends State<FlowScreen> {
                         setState(() {});
                       },
                     ),
-                    SizedBox(height: 12.adaptSize),
+                    SizedBox(height: 6.adaptSize),
                     _buildOption(
                       value: 3,
                       label: "Flow 3".tr,
@@ -114,9 +119,9 @@ class FlowScreenState extends State<FlowScreen> {
                         setState(() {});
                       },
                     ),
-                    SizedBox(height: 12.adaptSize),
+                    SizedBox(height: 6.adaptSize),
                     _buildButton(),
-                    SizedBox(height: 12.adaptSize),
+                    SizedBox(height: 6.adaptSize),
                   ],
                 ),
               ),
