@@ -36,13 +36,13 @@ class CustomCarousel extends StatelessWidget {
         Cause cause = items[index];
 
         return Container(
-          height: 420.v,
-          margin: EdgeInsets.symmetric(horizontal: 2.h),
+          height: 420.adaptSize,
+          margin: EdgeInsets.symmetric(horizontal: 2.adaptSize),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              width: 2.adaptSize,
+              width: 4.adaptSize,
               color: initialPage == index ? appTheme.primary : appTheme.white,
             ),
           ),
@@ -58,8 +58,9 @@ class CustomCarousel extends StatelessWidget {
                 cause.title,
                 textAlign: TextAlign.center,
                 style: TextStyles.headlineSmall.copyWith(
+                  fontSize: 34.fSize,
                   color: appTheme.gray600,
-                  fontSize: 18.fSize,
+                  fontWeight: FontWeight.w700,
                 ),
               )
             ],

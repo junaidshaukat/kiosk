@@ -12,52 +12,64 @@ class BottomArea extends StatelessWidget {
   final void Function()? onNext;
   final void Function()? onBack;
 
+  final double? height;
+  final double? lblWidth;
+  final Size buttonSize;
+  final double? fontSize;
+  final double radius;
+
   const BottomArea({
     super.key,
     this.label,
     this.onNext,
     this.onBack,
+    this.fontSize,
     this.imagePath,
     this.next = true,
     this.lblNext = '',
     this.lblBack = '',
     this.back = false,
+    this.radius = 8,
+    this.height = 128,
+    this.lblWidth = 128,
+    this.buttonSize = const Size(100, 60),
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60.v,
-      width: double.maxFinite,
+      height: height,
       child: Row(
         children: [
           if (imagePath != null) ...[
-            SizedBox(width: 4.h),
+            SizedBox(width: 8.adaptSize),
             CustomImageView(
               fit: BoxFit.cover,
               imagePath: imagePath,
             ),
-            SizedBox(width: 1.h),
+            SizedBox(width: 1.adaptSize),
             SizedBox(
-              width: 110.h,
+              width: lblWidth,
               child: Text(
                 "$label",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.headlineSmall.copyWith(
+                  fontSize: fontSize,
                   color: appTheme.gray600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
           ],
           if (back) ...[
-            SizedBox(width: 4.h),
+            SizedBox(width: 8.adaptSize),
             Container(
-              width: 80.h,
-              height: 38.v,
+              width: buttonSize.width,
+              height: buttonSize.height,
               decoration: AppDecoration.primary.copyWith(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20.adaptSize),
+                borderRadius: BorderRadius.circular(radius),
                 border: Border.all(
                   width: 1.adaptSize,
                   color: appTheme.lime800,
@@ -77,14 +89,14 @@ class BottomArea extends StatelessWidget {
                             color: appTheme.lime800,
                             imagePath: 'chevron-left'.icon.svg,
                           ),
-                          SizedBox(width: 1.h),
+                          SizedBox(width: 2.h),
                         ],
                         Text(
                           lblBack.tr,
                           style: TextStyles.displayLarge.copyWith(
-                            fontSize: 18.fSize,
+                            fontSize: fontSize,
                             color: appTheme.lime800,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
@@ -93,15 +105,15 @@ class BottomArea extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 4.h),
+            SizedBox(width: 8.adaptSize),
           ],
           if (next) ...[
             const Spacer(),
             Container(
-              width: 80.h,
-              height: 38.v,
+              width: buttonSize.width,
+              height: buttonSize.height,
               decoration: AppDecoration.primary.copyWith(
-                borderRadius: BorderRadiusStyle.roundedBorder20,
+                borderRadius: BorderRadius.circular(radius),
               ),
               child: InkWell(
                 onTap: onNext,
@@ -115,13 +127,13 @@ class BottomArea extends StatelessWidget {
                         Text(
                           lblNext.tr,
                           style: TextStyles.displayLarge.copyWith(
-                            fontSize: 18.fSize,
+                            fontSize: fontSize,
                             color: appTheme.white,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         if (lblNext == "lbl_next") ...[
-                          SizedBox(width: 1.h),
+                          SizedBox(width: 2.adaptSize),
                           CustomImageView(
                             color: appTheme.white,
                             imagePath: 'chevron-right'.icon.svg,
@@ -133,7 +145,7 @@ class BottomArea extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 4.h)
+            SizedBox(width: 8.adaptSize)
           ]
         ],
       ),

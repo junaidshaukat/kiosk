@@ -125,63 +125,82 @@ class Steps {
 
 class CustomStepper extends StatelessWidget {
   final int step;
-  const CustomStepper({super.key, this.step = 0});
+  final Size size;
+  final Size circle;
+  final double height;
+  final double vertical;
+  final double? fontSize;
+
+  const CustomStepper({
+    super.key,
+    this.step = 0,
+    this.fontSize,
+    this.vertical = 8,
+    this.height = 128,
+    this.size = const Size(60, 6),
+    this.circle = const Size(24, 24),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 16.v,
+        vertical: vertical,
       ),
       child: SizedBox(
-        height: 60.v,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: Steps.steps(step).map((s) => _buildStep(s)).toList(),
+        height: height,
+        child: FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: Steps.steps(step)
+                .map((s) => _buildStep(s, size, circle))
+                .toList(),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildStep(Steps s) {
+  Widget _buildStep(Steps s, Size size, Size circle) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           children: [
             Container(
-              width: 20.h,
-              height: 6.v,
+              width: size.width,
+              height: size.height,
               decoration: BoxDecoration(
                 color: s.left,
               ),
             ),
             Container(
-              width: 24.adaptSize,
-              height: 24.adaptSize,
+              width: circle.width,
+              height: circle.height,
               decoration: BoxDecoration(
                 color: s.circle,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  width: 2.adaptSize,
+                  width: 2,
                   color: appTheme.white,
                 ),
               ),
             ),
             Container(
-              width: 20.h,
-              height: 6.v,
+              width: size.width,
+              height: size.height,
               decoration: BoxDecoration(
                 color: s.right,
               ),
             ),
           ],
         ),
-        SizedBox(height: 4.v),
+        SizedBox(height: 4.adaptSize),
         Text(
           s.label,
           style: TextStyle(
             color: s.text,
+            fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),

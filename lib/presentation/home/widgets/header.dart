@@ -3,12 +3,16 @@ import '/core/app_export.dart';
 
 class CustomHeader extends StatelessWidget {
   final String label;
+  final double? fontSize1;
+  final double? fontSize2;
   final void Function()? onCancel;
 
   const CustomHeader({
     super.key,
-    this.label = '',
     this.onCancel,
+    this.fontSize1,
+    this.fontSize2,
+    this.label = '',
   });
 
   @override
@@ -17,8 +21,8 @@ class CustomHeader extends StatelessWidget {
       width: double.maxFinite,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: 12.v,
-          horizontal: 12.h,
+          vertical: 12.adaptSize,
+          horizontal: 12.adaptSize,
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -26,7 +30,8 @@ class CustomHeader extends StatelessWidget {
             Text(
               label,
               style: TextStyles.displayMedium.copyWith(
-                fontSize: 24.fSize,
+                fontSize: fontSize2,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Positioned(
@@ -37,7 +42,8 @@ class CustomHeader extends StatelessWidget {
                   "lbl_cancel".tr,
                   textAlign: TextAlign.left,
                   style: TextStyles.headlineLarge.copyWith(
-                    fontSize: 18.fSize,
+                    color: appTheme.lime800,
+                    fontSize: fontSize1,
                   ),
                 ),
               ),

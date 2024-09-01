@@ -13,8 +13,6 @@ class AmountScreenState extends State<AmountScreen> {
 
   int initialPage = 0;
 
-  TextEditingController amountController = TextEditingController();
-
   final PageController controller = PageController(
     initialPage: 0,
     viewportFraction: 0.5,
@@ -22,228 +20,91 @@ class AmountScreenState extends State<AmountScreen> {
 
   int flow = 1;
 
+  String amount = '00';
+
   @override
   void initState() {
     super.initState();
     provider = context.read<PreferenceProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
+      Future.delayed(const Duration(seconds: 1), () {
+        // NavigatorService.push(context, const PaymentScreen());
+      });
     });
   }
 
-  Widget _buildInput({
-    required String hintText,
-    required TextEditingController controller,
-    required TextInputAction textInputAction,
-  }) {
-    return Input(
-      hintText: hintText,
-      controller: controller,
-      fillColor: appTheme.gray100,
-      textInputAction: textInputAction,
-    );
-  }
-
-  Widget button({
-    num width = 10,
-    num height = 10,
-    String label = '',
-  }) {
-    return Container(
-      width: width.h,
-      height: height.v,
-      color: appTheme.primary,
-      child: Center(
-        child: Text(
-          label.tr,
-          style: TextStyles.labelMedium,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+  Widget responsive() {
+    return Responsive(
+      phone: (orientation) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomStepper(step: 1),
-            CustomDivider(height: 2.v),
+            CustomStepper(
+              step: 1,
+              fontSize: 16.fSize,
+              height: 60.adaptSize,
+              vertical: 8.adaptSize,
+            ),
+            CustomDivider(height: 1.v),
             SizedBox(height: 12.v),
             CustomHeader(
+              fontSize1: 12.fSize,
+              fontSize2: 16.fSize,
               onCancel: () {
                 NavigatorService.goBack();
               },
+              label: "".tr,
             ),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.h),
-                child: Row(
-                  children: [
-                    CustomImageView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 128.adaptSize,
+                    height: 128.adaptSize,
+                    child: CustomImageView(
+                      fit: BoxFit.contain,
                       imagePath: "mosque@2".image.png,
                     ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "msg_enter_your_own_amount".tr,
-                            style: TextStyles.headlineSmall.copyWith(),
-                          ),
-                          SizedBox(height: 2.v),
-                          _buildInput(
-                            controller: amountController,
-                            hintText: "msg_enter_your_own_amount".tr,
-                            textInputAction: TextInputAction.done,
-                          ),
-                          SizedBox(height: 6.v),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '\$5',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '\$10',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '\$20',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '\$30',
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 20.h),
-                              Column(
-                                children: [
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '1',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '4',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 4.h),
-                              Column(
-                                children: [
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '1',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '4',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 4.h),
-                              Column(
-                                children: [
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '1',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '4',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 4.h),
-                              Column(
-                                children: [
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '1',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '4',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                  button(
-                                    width: 20.h,
-                                    height: 20.v,
-                                    label: '7',
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                  ),
+                  Keyboard(
+                    amount: amount,
+                    radius: 4.adaptSize,
+                    hintFontSize: 14.fSize,
+                    labelFontSize: 18.fSize,
+                    amountFontSize: 24.fSize,
+                    size1: Size(50.adaptSize, 40.adaptSize),
+                    size2: Size(40.adaptSize, 40.adaptSize),
+                    size3: Size(40.adaptSize, 97.adaptSize),
+                    constraints: BoxConstraints(maxWidth: fdw * 0.90),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.adaptSize,
+                      vertical: 12.adaptSize,
                     ),
-                  ],
-                ),
+                    onPressed: (event, val) {
+                      if (event == KeyboardEvent.fixed) {
+                        amount = val;
+                        setState(() {});
+                      }
+                      console.log((event, val));
+                    },
+                  ),
+                ],
               ),
             ),
             CustomDivider(
-              height: 2.v,
+              height: 1.adaptSize,
               offset: const Offset(-1, 0),
             ),
             BottomArea(
               back: true,
+              fontSize: 14.fSize,
               lblBack: "lbl_back",
+              radius: 4.adaptSize,
+              height: 70.adaptSize,
               lblNext: "lbl_confirm",
+              buttonSize: Size(90.adaptSize, 38.adaptSize),
               onBack: () {
                 NavigatorService.goBack();
               },
@@ -252,7 +113,189 @@ class AmountScreenState extends State<AmountScreen> {
               },
             )
           ],
-        ),
+        );
+      },
+      tablet: (orientation) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomStepper(
+              step: 1,
+              fontSize: 12.fSize,
+              height: 100.adaptSize,
+              vertical: 8.adaptSize,
+            ),
+            CustomDivider(height: 2.adaptSize),
+            SizedBox(height: 12.adaptSize),
+            CustomHeader(
+              fontSize1: 14.fSize,
+              fontSize2: 16.fSize,
+              onCancel: () {
+                NavigatorService.goBack();
+              },
+              label: "msg_enter_your_own_amount".tr,
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 128.adaptSize,
+                    height: 128.adaptSize,
+                    child: CustomImageView(
+                      fit: BoxFit.contain,
+                      imagePath: "mosque@2".image.png,
+                    ),
+                  ),
+                  Keyboard(
+                    amount: amount,
+                    radius: 4.adaptSize,
+                    hintFontSize: 14.fSize,
+                    labelFontSize: 18.fSize,
+                    amountFontSize: 24.fSize,
+                    size1: Size(50.adaptSize, 40.adaptSize),
+                    size2: Size(40.adaptSize, 40.adaptSize),
+                    size3: Size(40.adaptSize, 97.adaptSize),
+                    constraints: BoxConstraints(maxWidth: fdw * 0.90),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.adaptSize,
+                      vertical: 12.adaptSize,
+                    ),
+                    onPressed: (event, val) {
+                      if (event == KeyboardEvent.fixed) {
+                        amount = val;
+                        setState(() {});
+                      }
+                      console.log((event, val));
+                    },
+                  ),
+                ],
+              ),
+            ),
+            CustomDivider(
+              height: 2.adaptSize,
+              offset: const Offset(-1, 0),
+            ),
+            BottomArea(
+              back: true,
+              fontSize: 18.fSize,
+              lblBack: "lbl_back",
+              radius: 8.adaptSize,
+              height: 110.adaptSize,
+              lblNext: "lbl_confirm",
+              buttonSize: Size(120.adaptSize, 58.adaptSize),
+              onBack: () {
+                NavigatorService.goBack();
+              },
+              onNext: () {
+                NavigatorService.push(context, const PaymentScreen());
+              },
+            )
+          ],
+        );
+      },
+      kiosk: (orientation) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomStepper(
+              step: 1,
+              fontSize: 16.fSize,
+              height: 128.adaptSize,
+              vertical: 8.adaptSize,
+            ),
+            CustomDivider(height: 2.adaptSize),
+            SizedBox(height: 12.adaptSize),
+            CustomHeader(
+              fontSize1: 32.fSize,
+              fontSize2: 36.fSize,
+              onCancel: () {
+                NavigatorService.goBack();
+              },
+              label: "".tr,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      width: double.maxFinite,
+                      height: double.maxFinite,
+                      child: CustomImageView(
+                        fit: BoxFit.contain,
+                        imagePath: "mosque@2".image.png,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 12.adaptSize),
+                        Keyboard(
+                          amount: amount,
+                          radius: 8.adaptSize,
+                          hintFontSize: 28.fSize,
+                          labelFontSize: 40.fSize,
+                          amountFontSize: 40.fSize,
+                          size1: Size(((fdw * 0.45) * 0.25).adaptSize,
+                              ((fdw * 0.45) * 0.15).adaptSize),
+                          size2: Size(((fdw * 0.45) * 0.20).adaptSize,
+                              ((fdw * 0.45) * 0.15).adaptSize),
+                          size3: Size(((fdw * 0.45) * 0.20).adaptSize,
+                              ((fdw * 0.45) * 0.35).adaptSize),
+                          constraints: BoxConstraints(maxWidth: fdw * 0.45),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.adaptSize,
+                            vertical: 24.adaptSize,
+                          ),
+                          onPressed: (event, val) {
+                            if (event == KeyboardEvent.fixed) {
+                              amount = val;
+                              setState(() {});
+                            }
+                            console.log((event, val));
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            CustomDivider(
+              height: 2.adaptSize,
+              offset: const Offset(-1, 0),
+            ),
+            BottomArea(
+              back: true,
+              fontSize: 36.fSize,
+              radius: 8.adaptSize,
+              lblBack: "lbl_back",
+              height: 138.adaptSize,
+              lblNext: "lbl_confirm",
+              lblWidth: 500.adaptSize,
+              buttonSize: Size(200.adaptSize, 78.adaptSize),
+              onBack: () {
+                NavigatorService.goBack();
+              },
+              onNext: () {
+                NavigatorService.push(context, const PaymentScreen());
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: responsive(),
       ),
     );
   }

@@ -15,8 +15,15 @@ final Map<String, String> enUs = {
   ///Selection Screen
   "msg_choose_your_cause": "Choose Your Cause",
   "msg_mosque_construction_in": "Mosque Construction in new jersey",
+  "msg_enter_your_own_amount": "Enter your own amount",
+
+  ///Selection Screen
+  "msg_choose_payment_type": "Choose Payment Type",
+  "msg_please_insert_card": "Please Insert Card",
+  "msg_confirm_transaction": "Confirm Transaction",
 
   ///Common
+  "lbl_ok": "Ok",
   "lbl_continue": "Continue",
   "lbl_campaign": "Campaign",
   "lbl_amount": "Amount",
@@ -26,8 +33,17 @@ final Map<String, String> enUs = {
   "lbl_cancel": "Cancel",
   "lbl_back": "Back",
   "lbl_confirm": "Confirm",
+  "lbl_confirmation": "Confirmation",
+  "lbl_total": "Total",
+  "lbl_mosque": "Mosque",
+  "lbl_device_fee": "Device Fee",
+  "lbl_tax": "Tax",
+  "lbl_debit": "Debit",
 
   /// Network Error String
+
   "msg_network_err": "Network Error",
   "msg_something_went_wrong": "Something Went Wrong!",
+  "msg_transaction_completed_successfully":
+      "Transaction Completed Successfully",
 };
