@@ -9,6 +9,7 @@ class AmountScreen extends StatefulWidget {
 }
 
 class AmountScreenState extends State<AmountScreen> {
+  final int step = 1;
   late PreferenceProvider provider;
 
   int initialPage = 0;
@@ -29,7 +30,7 @@ class AmountScreenState extends State<AmountScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
       Future.delayed(const Duration(seconds: 1), () {
-        // NavigatorService.push(context, const PaymentScreen());
+        NavigatorService.push(context, const PaymentScreen());
       });
     });
   }
@@ -42,7 +43,7 @@ class AmountScreenState extends State<AmountScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomStepper(
-              step: 1,
+              step: step,
               fontSize: 16.fSize,
               height: 60.adaptSize,
               vertical: 8.adaptSize,
@@ -121,7 +122,7 @@ class AmountScreenState extends State<AmountScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomStepper(
-              step: 1,
+              step: step,
               fontSize: 12.fSize,
               height: 100.adaptSize,
               vertical: 8.adaptSize,
@@ -200,7 +201,7 @@ class AmountScreenState extends State<AmountScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomStepper(
-              step: 1,
+              step: step,
               fontSize: 16.fSize,
               height: 128.adaptSize,
               vertical: 8.adaptSize,

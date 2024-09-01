@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import '/core/app_export.dart';
 
-import './method.dart';
-
-class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key});
+class PaymentMethodScreen extends StatefulWidget {
+  const PaymentMethodScreen({super.key});
 
   @override
-  State<PaymentScreen> createState() => PaymentScreenState();
+  State<PaymentMethodScreen> createState() => PaymentMethodScreenState();
 }
 
-class PaymentScreenState extends State<PaymentScreen> {
+class PaymentMethodScreenState extends State<PaymentMethodScreen> {
   final int step = 2;
 
   late PreferenceProvider provider;
@@ -33,7 +31,7 @@ class PaymentScreenState extends State<PaymentScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
       Future.delayed(const Duration(seconds: 1), () {
-        NavigatorService.push(context, const PaymentMethodScreen());
+        // NavigatorService.push(context, const PaymentScreen());
       });
     });
   }
@@ -110,7 +108,7 @@ class PaymentScreenState extends State<PaymentScreen> {
                 NavigatorService.goBack();
               },
               onNext: () {
-                NavigatorService.push(context, const PaymentMethodScreen());
+                NavigatorService.push(context, const PaymentScreen());
               },
             )
           ],
@@ -186,7 +184,7 @@ class PaymentScreenState extends State<PaymentScreen> {
                 NavigatorService.goBack();
               },
               onNext: () {
-                NavigatorService.push(context, const PaymentMethodScreen());
+                NavigatorService.push(context, const PaymentScreen());
               },
             )
           ],
@@ -267,7 +265,7 @@ class PaymentScreenState extends State<PaymentScreen> {
                 NavigatorService.goBack();
               },
               onNext: () {
-                NavigatorService.push(context, const PaymentMethodScreen());
+                NavigatorService.push(context, const PaymentScreen());
               },
             )
           ],

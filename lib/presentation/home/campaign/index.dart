@@ -9,6 +9,7 @@ class CampaignScreen extends StatefulWidget {
 }
 
 class CampaignScreenState extends State<CampaignScreen> {
+  final int step = 0;
   late PreferenceProvider provider;
 
   int initialPage = 0;
@@ -83,7 +84,7 @@ class CampaignScreenState extends State<CampaignScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomStepper(
-              step: 0,
+              step: step,
               fontSize: 16.fSize,
               height: 60.adaptSize,
               vertical: 8.adaptSize,
@@ -173,7 +174,7 @@ class CampaignScreenState extends State<CampaignScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomStepper(
-              step: 0,
+              step: step,
               fontSize: 12.fSize,
               height: 100.adaptSize,
               vertical: 8.adaptSize,
@@ -263,7 +264,7 @@ class CampaignScreenState extends State<CampaignScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomStepper(
-              step: 0,
+              step: step,
               fontSize: 16.fSize,
               height: 128.adaptSize,
               vertical: 8.adaptSize,

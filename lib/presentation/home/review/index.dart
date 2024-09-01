@@ -9,6 +9,7 @@ class ReviewScreen extends StatefulWidget {
 }
 
 class ReviewScreenState extends State<ReviewScreen> {
+  final int step = 3;
   late PreferenceProvider provider;
 
   int initialPage = 0;
@@ -37,7 +38,7 @@ class ReviewScreenState extends State<ReviewScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomStepper(step: 3),
+            CustomStepper(step: step),
             CustomDivider(height: 2.v),
             SizedBox(height: 12.v),
             CustomHeader(

@@ -1,4 +1,4 @@
-export './bottom.dart';
-export './body.dart';
-export './header.dart';
-export './keyboard.dart';
+export 'bottom.dart';
+export 'confirmation.dart';
+export 'header.dart';
+export 'keyboard.dart';
