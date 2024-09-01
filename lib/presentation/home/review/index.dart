@@ -10,6 +10,7 @@ class ReviewScreen extends StatefulWidget {
 
 class ReviewScreenState extends State<ReviewScreen> {
   final int step = 3;
+
   late PreferenceProvider provider;
 
   int initialPage = 0;
@@ -21,6 +22,8 @@ class ReviewScreenState extends State<ReviewScreen> {
 
   int flow = 1;
 
+  String amount = '00';
+
   @override
   void initState() {
     super.initState();
@@ -30,162 +33,227 @@ class ReviewScreenState extends State<ReviewScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+  Widget responsive() {
+    Widget child = Responsive(
+      phone: (orientation) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomStepper(step: step),
-            CustomDivider(height: 2.v),
+            CustomStepper(
+              step: step,
+              fontSize: 16.fSize,
+              height: 60.adaptSize,
+              vertical: 8.adaptSize,
+            ),
             SizedBox(height: 12.v),
             CustomHeader(
+              fontSize1: 12.fSize,
+              fontSize2: 16.fSize,
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "msg_choose_your_cause".tr,
+              label: "lbl_review".tr,
             ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          if (initialPage == 7) {
-                            setState(() {
-                              initialPage = 6;
-                            });
-                          } else {
-                            setState(() {
-                              controller.previousPage(
-                                curve: Curves.ease,
-                                duration: const Duration(milliseconds: 100),
-                              );
-                            });
-                          }
-                        },
-                        child: CustomImageView(
-                          width: 24.adaptSize,
-                          height: 24.adaptSize,
-                          imagePath: 'caret-left-fill'.icon.svg,
-                          color: initialPage == 0
-                              ? appTheme.gray600
-                              : appTheme.primary,
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 420.v,
-                          width: double.maxFinite,
-                          child: Stack(
-                            children: [
-                              CustomCarousel(
-                                controller: controller,
-                                initialPage: initialPage,
-                                onPageChanged: (int page) {
-                                  setState(() {
-                                    initialPage = page;
-                                  });
-                                },
-                                items: [
-                                  Cause(
-                                    index: 0,
-                                    title: 'Mosque Donation'.tr,
-                                    imagePath: "mosque@2".image.png,
-                                  ),
-                                  Cause(
-                                    index: 1,
-                                    title: 'Zakat Donation'.tr,
-                                    imagePath: "zakat".image.png,
-                                  ),
-                                  Cause(
-                                    index: 2,
-                                    title: 'Sadaqah'.tr,
-                                    imagePath: "sadaqah".image.png,
-                                  ),
-                                  Cause(
-                                    index: 3,
-                                    title: 'Food Bank'.tr,
-                                    imagePath: "food_bank".image.png,
-                                  ),
-                                  Cause(
-                                    index: 4,
-                                    title: 'Mosque Donation'.tr,
-                                    imagePath: "mosque@2".image.png,
-                                  ),
-                                  Cause(
-                                    index: 5,
-                                    title: 'Mosque Donation'.tr,
-                                    imagePath: "mosque@2".image.png,
-                                  ),
-                                  Cause(
-                                    index: 6,
-                                    title: 'Mosque Donation'.tr,
-                                    imagePath: "mosque@2".image.png,
-                                  ),
-                                  Cause(
-                                    index: 7,
-                                    title: 'Mosque Donation'.tr,
-                                    imagePath: "mosque@2".image.png,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            if (initialPage == 6) {
-                              setState(() {
-                                initialPage = 7;
-                              });
-                            } else {
-                              setState(() {
-                                controller.nextPage(
-                                  curve: Curves.ease,
-                                  duration: const Duration(milliseconds: 100),
-                                );
-                              });
-                            }
-                          });
-                        },
-                        child: CustomImageView(
-                          width: 24.adaptSize,
-                          height: 24.adaptSize,
-                          imagePath: 'caret-right-fill'.icon.svg,
-                          color: initialPage == 7
-                              ? appTheme.gray600
-                              : appTheme.primary,
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    width: 128.adaptSize,
+                    height: 128.adaptSize,
+                    child: CustomImageView(
+                      fit: BoxFit.contain,
+                      imagePath: "check-circle".icon.svg,
+                    ),
                   ),
+                  SizedBox(height: 24.adaptSize),
+                  Text(
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    "msg_transaction_completed_successfully".tr,
+                    style: TextStyles.headlineSmall.copyWith(
+                      fontSize: 24.fSize,
+                      color: appTheme.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
                 ],
               ),
             ),
             CustomDivider(
-              height: 2.v,
+              height: 1.adaptSize,
               offset: const Offset(-1, 0),
             ),
             BottomArea(
               back: true,
-              lblNext: "lbl_next",
+              next: false,
+              fontSize: 14.fSize,
               lblBack: "lbl_back",
+              radius: 4.adaptSize,
+              height: 70.adaptSize,
+              lblNext: "lbl_confirm",
+              buttonSize: Size(90.adaptSize, 38.adaptSize),
               onBack: () {
                 NavigatorService.goBack();
               },
-              onNext: () {
-                NavigatorService.push(context, const PaymentScreen());
+            )
+          ],
+        );
+      },
+      tablet: (orientation) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomStepper(
+              step: step,
+              fontSize: 12.fSize,
+              height: 100.adaptSize,
+              vertical: 8.adaptSize,
+            ),
+            CustomDivider(height: 2.adaptSize),
+            SizedBox(height: 12.adaptSize),
+            CustomHeader(
+              fontSize1: 14.fSize,
+              fontSize2: 16.fSize,
+              onCancel: () {
+                NavigatorService.goBack();
+              },
+              label: "lbl_confirmation".tr,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 128.adaptSize,
+                    height: 128.adaptSize,
+                    child: CustomImageView(
+                      fit: BoxFit.contain,
+                      imagePath: "check-circle".icon.svg,
+                    ),
+                  ),
+                  SizedBox(height: 24.adaptSize),
+                  Text(
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    "msg_transaction_completed_successfully".tr,
+                    style: TextStyles.headlineSmall.copyWith(
+                      fontSize: 24.fSize,
+                      color: appTheme.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            CustomDivider(
+              height: 2.adaptSize,
+              offset: const Offset(-1, 0),
+            ),
+            BottomArea(
+              back: true,
+              next: false,
+              fontSize: 18.fSize,
+              lblBack: "lbl_back",
+              radius: 8.adaptSize,
+              height: 110.adaptSize,
+              lblNext: "lbl_confirm",
+              buttonSize: Size(120.adaptSize, 58.adaptSize),
+              onBack: () {
+                NavigatorService.goBack();
               },
             )
           ],
-        ),
+        );
+      },
+      kiosk: (orientation) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomStepper(
+              step: step,
+              fontSize: 16.fSize,
+              height: 128.adaptSize,
+              vertical: 8.adaptSize,
+            ),
+            CustomDivider(height: 2.adaptSize),
+            SizedBox(height: 12.adaptSize),
+            CustomHeader(
+              fontSize1: 32.fSize,
+              fontSize2: 36.fSize,
+              onCancel: () {
+                NavigatorService.goBack();
+              },
+              label: "lbl_confirmation".tr,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 150.adaptSize,
+                    height: 150.adaptSize,
+                    child: CustomImageView(
+                      fit: BoxFit.contain,
+                      imagePath: "check-circle".icon.svg,
+                    ),
+                  ),
+                  SizedBox(height: 24.adaptSize),
+                  Text(
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    "msg_transaction_completed_successfully".tr,
+                    style: TextStyles.headlineSmall.copyWith(
+                      fontSize: 48.fSize,
+                      color: appTheme.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            CustomDivider(
+              height: 2.adaptSize,
+              offset: const Offset(-1, 0),
+            ),
+            BottomArea(
+              back: true,
+              next: false,
+              fontSize: 36.fSize,
+              radius: 8.adaptSize,
+              lblBack: "lbl_back",
+              height: 138.adaptSize,
+              lblNext: "lbl_confirm",
+              lblWidth: 500.adaptSize,
+              buttonSize: Size(200.adaptSize, 78.adaptSize),
+              onBack: () {
+                NavigatorService.goBack();
+              },
+            )
+          ],
+        );
+      },
+    );
+    Future.delayed(const Duration(seconds: 3), () {
+      NavigatorService.popAndPushNamed(AppRoutes.home);
+    });
+    return child;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: responsive(),
       ),
     );
   }

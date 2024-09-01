@@ -30,10 +30,176 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
     provider = context.read<PreferenceProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
-      Future.delayed(const Duration(seconds: 1), () {
-        // NavigatorService.push(context, const PaymentScreen());
-      });
     });
+  }
+
+  void tapToPay() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        AlertDialog dialog = AlertDialog(
+          title: Text('lbl_please_tap_to_pay'.tr),
+          content: Center(
+            child: CustomImageView(
+              width: 300.adaptSize,
+              height: 300.adaptSize,
+              imagePath: 'finger-print'.icon.svg,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                NavigatorService.goBack();
+              },
+              child: Text('lbl_cancel'.tr),
+            ),
+          ],
+        );
+
+        Future.delayed(const Duration(seconds: 3), () {
+          NavigatorService.push(context, const ReviewScreen());
+        });
+
+        return dialog;
+      },
+    );
+  }
+
+  void confirmTransaction() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        AlertDialog dialog = AlertDialog(
+          title: Text('lbl_confirm_transaction'.tr),
+          content: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: "lbl_total".tr,
+                    style: TextStyles.displayLarge.copyWith(
+                      fontSize: 24.fSize,
+                      color: appTheme.lime800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: ": ".tr,
+                      ),
+                      TextSpan(
+                        text: "\$30.35".tr,
+                      ),
+                    ],
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: "lbl_debit".tr,
+                    style: TextStyles.displayLarge.copyWith(
+                      fontSize: 24.fSize,
+                      color: appTheme.lime800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: ": ".tr,
+                      ),
+                      TextSpan(
+                        text: "**** - 0000".tr,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                NavigatorService.goBack();
+              },
+              child: Text('lbl_cancel'.tr),
+            ),
+            TextButton(
+              onPressed: () {
+                NavigatorService.goBack();
+                tapToPay();
+              },
+              child: Text('lbl_confirm'.tr),
+            ),
+          ],
+        );
+
+        return dialog;
+      },
+    );
+  }
+
+  void scanQrCode() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        AlertDialog dialog = AlertDialog(
+          title: Text('lbl_please_scan_qr_code'.tr),
+          content: Center(
+            child: CustomImageView(
+              width: 300.adaptSize,
+              height: 300.adaptSize,
+              imagePath: 'qr-code'.icon.svg,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                NavigatorService.goBack();
+              },
+              child: Text('lbl_cancel'.tr),
+            ),
+          ],
+        );
+
+        Future.delayed(const Duration(seconds: 3), () {
+          NavigatorService.goBack();
+          confirmTransaction();
+        });
+
+        return dialog;
+      },
+    );
+  }
+
+  void onTapCard() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        AlertDialog dialog = AlertDialog(
+          title: Text('lbl_please_insert_card'.tr),
+          content: Center(
+            child: Lottie.asset(
+              height: 300.adaptSize,
+              width: 300.adaptSize,
+              'card_insert'.lottie.json,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                NavigatorService.goBack();
+              },
+              child: Text('lbl_cancel'.tr),
+            ),
+          ],
+        );
+
+        Future.delayed(const Duration(seconds: 3), () {
+          NavigatorService.goBack();
+          scanQrCode();
+        });
+
+        return dialog;
+      },
+    );
   }
 
   Widget responsive() {
@@ -57,37 +223,59 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "lbl_confirmation".tr,
+              label: "lbl_choose_payment_type".tr,
             ),
             Expanded(
               child: Column(
                 children: [
-                  SizedBox(
-                    width: 128.adaptSize,
-                    height: 128.adaptSize,
-                    child: CustomImageView(
-                      fit: BoxFit.contain,
-                      imagePath: "mosque@2".image.png,
+                  RichText(
+                    text: TextSpan(
+                      text: "lbl_total".tr,
+                      style: TextStyles.displayLarge.copyWith(
+                        fontSize: 24.fSize,
+                        color: appTheme.lime800,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ": ".tr,
+                        ),
+                        TextSpan(
+                          text: "\$30.35".tr,
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(24.adaptSize),
-                    child: Confirmation(
-                      fee: "\$2.75".tr,
-                      tax: "\$1.94".tr,
-                      amount: "\$30".tr,
-                      total: "\$30.34".tr,
-                      feeFontSize: 24.adaptSize,
-                      taxFontSize: 24.adaptSize,
-                      titleFontSize: 24.adaptSize,
-                      totalFontSize: 24.adaptSize,
-                      amountFontSize: 24.adaptSize,
-                      feeLabelFontSize: 24.adaptSize,
-                      taxLabelFontSize: 24.adaptSize,
-                      title: "Mosque Construction".tr,
-                      totalLabelFontSize: 24.adaptSize,
-                      amountLabelFontSize: 24.adaptSize,
-                    ),
+                  SizedBox(height: 16.adaptSize),
+                  Wrap(
+                    spacing: 12.adaptSize,
+                    runSpacing: 12.adaptSize,
+                    children: [
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'credit'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'debit'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'apple-pay'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'google-pay'.icon.svg,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -98,6 +286,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
             BottomArea(
               back: true,
+              next: false,
               fontSize: 14.fSize,
               lblBack: "lbl_back",
               radius: 4.adaptSize,
@@ -133,37 +322,59 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "lbl_confirmation".tr,
+              label: "lbl_choose_payment_type".tr,
             ),
             Expanded(
               child: Column(
                 children: [
-                  SizedBox(
-                    width: 128.adaptSize,
-                    height: 128.adaptSize,
-                    child: CustomImageView(
-                      fit: BoxFit.contain,
-                      imagePath: "mosque@2".image.png,
+                  RichText(
+                    text: TextSpan(
+                      text: "lbl_total".tr,
+                      style: TextStyles.displayLarge.copyWith(
+                        fontSize: 24.fSize,
+                        color: appTheme.lime800,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ": ".tr,
+                        ),
+                        TextSpan(
+                          text: "\$30.35".tr,
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(24.adaptSize),
-                    child: Confirmation(
-                      fee: "\$2.75".tr,
-                      tax: "\$1.94".tr,
-                      amount: "\$30".tr,
-                      total: "\$30.34".tr,
-                      feeFontSize: 24.adaptSize,
-                      taxFontSize: 24.adaptSize,
-                      titleFontSize: 24.adaptSize,
-                      totalFontSize: 24.adaptSize,
-                      amountFontSize: 24.adaptSize,
-                      feeLabelFontSize: 24.adaptSize,
-                      taxLabelFontSize: 24.adaptSize,
-                      title: "Mosque Construction".tr,
-                      totalLabelFontSize: 24.adaptSize,
-                      amountLabelFontSize: 24.adaptSize,
-                    ),
+                  SizedBox(height: 16.adaptSize),
+                  Wrap(
+                    spacing: 12.adaptSize,
+                    runSpacing: 12.adaptSize,
+                    children: [
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'credit'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'debit'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'apple-pay'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 140.adaptSize,
+                        height: 140.adaptSize,
+                        imagePath: 'google-pay'.icon.svg,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -174,6 +385,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
             BottomArea(
               back: true,
+              next: false,
               fontSize: 18.fSize,
               lblBack: "lbl_back",
               radius: 8.adaptSize,
@@ -209,42 +421,62 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "lbl_confirmation".tr,
+              label: "lbl_choose_payment_type".tr,
             ),
             Expanded(
-              child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: SizedBox(
-                      width: double.maxFinite,
-                      height: double.maxFinite,
-                      child: CustomImageView(
-                        fit: BoxFit.contain,
-                        imagePath: "mosque@2".image.png,
+                  RichText(
+                    text: TextSpan(
+                      text: "lbl_total".tr,
+                      style: TextStyles.displayLarge.copyWith(
+                        fontSize: 64.fSize,
+                        color: appTheme.lime800,
+                        fontWeight: FontWeight.w700,
                       ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ": ".tr,
+                        ),
+                        TextSpan(
+                          text: "\$30.35".tr,
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(24.adaptSize),
-                      child: Confirmation(
-                        fee: "\$2.75".tr,
-                        tax: "\$1.94".tr,
-                        amount: "\$30".tr,
-                        total: "\$30.34".tr,
-                        feeFontSize: 24.adaptSize,
-                        taxFontSize: 24.adaptSize,
-                        titleFontSize: 24.adaptSize,
-                        totalFontSize: 24.adaptSize,
-                        amountFontSize: 24.adaptSize,
-                        feeLabelFontSize: 24.adaptSize,
-                        taxLabelFontSize: 24.adaptSize,
-                        title: "Mosque Construction".tr,
-                        totalLabelFontSize: 24.adaptSize,
-                        amountLabelFontSize: 24.adaptSize,
+                  SizedBox(height: 24.adaptSize),
+                  Wrap(
+                    spacing: 24.adaptSize,
+                    runSpacing: 12.adaptSize,
+                    children: [
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 200.adaptSize,
+                        height: 200.adaptSize,
+                        imagePath: 'credit'.icon.svg,
                       ),
-                    ),
-                  )
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 200.adaptSize,
+                        height: 200.adaptSize,
+                        imagePath: 'debit'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 200.adaptSize,
+                        height: 200.adaptSize,
+                        imagePath: 'apple-pay'.icon.svg,
+                      ),
+                      CustomImageView(
+                        onTap: onTapCard,
+                        width: 200.adaptSize,
+                        height: 200.adaptSize,
+                        imagePath: 'google-pay'.icon.svg,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -254,6 +486,7 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
             BottomArea(
               back: true,
+              next: false,
               fontSize: 36.fSize,
               radius: 8.adaptSize,
               lblBack: "lbl_back",

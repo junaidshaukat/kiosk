@@ -27,9 +27,6 @@ class CampaignScreenState extends State<CampaignScreen> {
     provider = context.read<PreferenceProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
-      Future.delayed(const Duration(seconds: 1), () {
-        NavigatorService.push(context, const AmountScreen());
-      });
     });
   }
 
@@ -97,7 +94,7 @@ class CampaignScreenState extends State<CampaignScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "msg_choose_your_cause".tr,
+              label: "lbl_choose_your_cause".tr,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -159,7 +156,7 @@ class CampaignScreenState extends State<CampaignScreen> {
               radius: 4.adaptSize,
               lblWidth: 150.adaptSize,
               imagePath: 'mosque@2'.image.png,
-              label: "msg_mosque_construction_in".tr,
+              label: "lbl_mosque_construction_in".tr,
               buttonSize: Size(90.adaptSize, 38.adaptSize),
               onNext: () {
                 NavigatorService.push(context, const AmountScreen());
@@ -187,7 +184,7 @@ class CampaignScreenState extends State<CampaignScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "msg_choose_your_cause".tr,
+              label: "lbl_choose_your_cause".tr,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -249,7 +246,7 @@ class CampaignScreenState extends State<CampaignScreen> {
               radius: 8.adaptSize,
               lblWidth: 350.adaptSize,
               imagePath: 'mosque@2'.image.png,
-              label: "msg_mosque_construction_in".tr,
+              label: "lbl_mosque_construction_in".tr,
               buttonSize: Size(120.adaptSize, 58.adaptSize),
               onNext: () {
                 NavigatorService.push(context, const AmountScreen());
@@ -277,7 +274,7 @@ class CampaignScreenState extends State<CampaignScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "msg_choose_your_cause".tr,
+              label: "lbl_choose_your_cause".tr,
             ),
             Expanded(
               child: Column(
@@ -371,7 +368,7 @@ class CampaignScreenState extends State<CampaignScreen> {
               height: 138.adaptSize,
               lblWidth: 500.adaptSize,
               imagePath: 'mosque@2'.image.png,
-              label: "msg_mosque_construction_in".tr,
+              label: "lbl_mosque_construction_in".tr,
               buttonSize: Size(200.adaptSize, 78.adaptSize),
               onNext: () {
                 NavigatorService.push(context, const AmountScreen());

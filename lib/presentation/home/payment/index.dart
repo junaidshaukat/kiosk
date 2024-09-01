@@ -32,9 +32,6 @@ class PaymentScreenState extends State<PaymentScreen> {
     provider = context.read<PreferenceProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
-      Future.delayed(const Duration(seconds: 1), () {
-        NavigatorService.push(context, const PaymentMethodScreen());
-      });
     });
   }
 

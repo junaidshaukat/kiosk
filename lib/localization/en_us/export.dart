@@ -5,22 +5,24 @@ final Map<String, String> enUs = {
   "lbl_sign_in": "Sign in",
   "lbl_log_in": "Log In",
   "lbl_fogot_password": "Forgot Password?",
-  "msg_forgot_your_login": "Forgot your login or password?",
+  "lbl_forgot_your_login": "Forgot your login or password?",
 
   ///Intro Screen
   "lbl_click_to_begin": "Click To Begin",
   "lbl_donate_now": "Donate Now",
-  "msg_click_here_to_learn": "Click here to learn ",
+  "lbl_click_here_to_learn": "Click here to learn ",
 
   ///Selection Screen
-  "msg_choose_your_cause": "Choose Your Cause",
-  "msg_mosque_construction_in": "Mosque Construction in new jersey",
-  "msg_enter_your_own_amount": "Enter your own amount",
+  "lbl_choose_your_cause": "Choose Your Cause",
+  "lbl_mosque_construction_in": "Mosque Construction in new jersey",
+  "lbl_enter_your_own_amount": "Enter your own amount",
 
   ///Selection Screen
-  "msg_choose_payment_type": "Choose Payment Type",
-  "msg_please_insert_card": "Please Insert Card",
-  "msg_confirm_transaction": "Confirm Transaction",
+  "lbl_choose_payment_type": "Choose Payment Type",
+  "lbl_please_insert_card": "Please Insert Card",
+  "lbl_confirm_transaction": "Confirm Transaction",
+  "lbl_please_scan_qr_code": "Please Scan QR Code",
+  "lbl_please_tap_to_pay": "Please Tap to Pay",
 
   ///Common
   "lbl_ok": "Ok",

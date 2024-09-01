@@ -91,7 +91,7 @@ class Keyboard extends StatelessWidget {
           child: Container(
             color: appTheme.white,
             child: Text(
-              "msg_enter_your_own_amount".tr,
+              "lbl_enter_your_own_amount".tr,
               textAlign: TextAlign.center,
               style: TextStyles.headlineSmall.copyWith(
                 fontSize: labelFontSize,

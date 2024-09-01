@@ -24,9 +24,6 @@ class HomeScreenState extends State<HomeScreen> {
     provider = context.read<PreferenceProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
-      Future.delayed(const Duration(seconds: 1), () {
-        NavigatorService.push(context, const CampaignScreen());
-      });
     });
   }
 
@@ -81,7 +78,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   Widget get learn {
     return Text(
-      "msg_click_here_to_learn".tr,
+      "lbl_click_here_to_learn".tr,
       style: TextStyles.displaySmall.copyWith(
         fontSize: 32.fSize,
         color: appTheme.yellow800,

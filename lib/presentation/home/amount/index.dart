@@ -29,9 +29,6 @@ class AmountScreenState extends State<AmountScreen> {
     provider = context.read<PreferenceProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       flow = provider.flow;
-      Future.delayed(const Duration(seconds: 1), () {
-        NavigatorService.push(context, const PaymentScreen());
-      });
     });
   }
 
@@ -135,7 +132,7 @@ class AmountScreenState extends State<AmountScreen> {
               onCancel: () {
                 NavigatorService.goBack();
               },
-              label: "msg_enter_your_own_amount".tr,
+              label: "lbl_enter_your_own_amount".tr,
             ),
             Expanded(
               child: Column(
