@@ -57,7 +57,9 @@ class PaymentMethodScreenState extends State<PaymentMethodScreen> {
         );
 
         Future.delayed(const Duration(seconds: 3), () {
-          NavigatorService.push(context, const ReviewScreen());
+          if (context.mounted) {
+            NavigatorService.push(context, const ReviewScreen());
+          }
         });
 
         return dialog;
