@@ -17,23 +17,14 @@ class FlowScreenState extends State<FlowScreen> {
   void initState() {
     super.initState();
     provider = context.read<PreferenceProvider>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 1), () async {
-        await provider.put('flow', groupValue);
-        if (groupValue == 3) {
-          NavigatorService.pushNamed(AppRoutes.signin);
-        } else {
-          NavigatorService.pushNamed(AppRoutes.home);
-        }
-      });
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
-  Widget get clipPath {
+  Widget clipPath({double? height, double? fontSize}) {
     return ClipPath(
       clipper: CurvedBottomClipper(),
       child: Container(
-        height: 350.v,
+        height: height,
         width: double.maxFinite,
         decoration: BoxDecoration(
           color: appTheme.green900,
@@ -48,7 +39,7 @@ class FlowScreenState extends State<FlowScreen> {
             Text(
               "lbl_log_in".tr,
               style: TextStyles.displayLarge.copyWith(
-                fontSize: 50.fSize,
+                fontSize: fontSize,
                 color: appTheme.white,
               ),
             ),
@@ -72,13 +63,17 @@ class FlowScreenState extends State<FlowScreen> {
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton({
+    double? width,
+    double? height,
+    double? fontSize,
+  }) {
     return CustomElevatedButton(
-      width: 500.adaptSize,
-      height: 58.adaptSize,
+      width: width,
+      height: height,
       name: "lbl_continue".tr,
       textStyle: TextStyles.displayMedium.copyWith(
-        fontSize: 28.fSize,
+        fontSize: fontSize,
       ),
       onPressed: () async {
         await provider.put('flow', groupValue);
@@ -91,7 +86,11 @@ class FlowScreenState extends State<FlowScreen> {
     );
   }
 
-  Widget get expanded {
+  Widget expanded({
+    double? width,
+    double? height,
+    double? fontSize,
+  }) {
     return Expanded(
       child: Padding(
         padding: EdgeInsets.all(16.adaptSize),
@@ -106,7 +105,7 @@ class FlowScreenState extends State<FlowScreen> {
                 setState(() {});
               },
             ),
-            SizedBox(height: 6.v),
+            SizedBox(height: 6.adaptSize),
             _buildOption(
               value: 2,
               label: "Flow 2".tr,
@@ -116,7 +115,7 @@ class FlowScreenState extends State<FlowScreen> {
                 setState(() {});
               },
             ),
-            SizedBox(height: 6.v),
+            SizedBox(height: 6.adaptSize),
             _buildOption(
               value: 3,
               label: "Flow 3".tr,
@@ -126,8 +125,8 @@ class FlowScreenState extends State<FlowScreen> {
                 setState(() {});
               },
             ),
-            SizedBox(height: 6.v),
-            _buildButton(),
+            SizedBox(height: 6.adaptSize),
+            _buildButton(width: width, height: height, fontSize: fontSize),
           ],
         ),
       ),
@@ -139,24 +138,45 @@ class FlowScreenState extends State<FlowScreen> {
       phone: (orientation) {
         return Column(
           children: [
-            clipPath,
-            expanded,
+            clipPath(
+              fontSize: 34.fSize,
+              height: 350.adaptSize,
+            ),
+            expanded(
+              fontSize: 18.fSize,
+              width: 300.adaptSize,
+              height: 48.adaptSize,
+            ),
           ],
         );
       },
       tablet: (orientation) {
         return Column(
           children: [
-            clipPath,
-            expanded,
+            clipPath(
+              fontSize: 42.fSize,
+              height: 400.adaptSize,
+            ),
+            expanded(
+              fontSize: 24.fSize,
+              width: 500.adaptSize,
+              height: 60.adaptSize,
+            ),
           ],
         );
       },
       kiosk: (orientation) {
         return Column(
           children: [
-            clipPath,
-            expanded,
+            clipPath(
+              fontSize: 50.fSize,
+              height: 500.adaptSize,
+            ),
+            expanded(
+              fontSize: 34.fSize,
+              width: 600.adaptSize,
+              height: 100.adaptSize,
+            ),
           ],
         );
       },

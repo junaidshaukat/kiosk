@@ -12,7 +12,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 3000), () {
+    Future.delayed(const Duration(milliseconds: 5000), () {
       NavigatorService.popAndPushNamed(
         AppRoutes.flow,
       );

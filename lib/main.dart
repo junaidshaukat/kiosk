@@ -25,7 +25,6 @@ void main() async {
           ChangeNotifierProvider(create: (c) => ApiProvider(c)),
           ChangeNotifierProvider(create: (c) => AuthenticationProvider(c)),
           ChangeNotifierProvider(create: (c) => SplashProvider(c)),
-          //
         ],
         child: const MyApp(),
       ),
