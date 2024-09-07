@@ -1,10 +1,12 @@
 final Map<String, String> enUs = {
   /// Login Screen
+  "lbl_un": "UN",
+  "lbl_pw": "PW",
   "lbl_email": "Email",
   "lbl_password": "Password",
   "lbl_sign_in": "Sign in",
   "lbl_log_in": "Log In",
-  "lbl_fogot_password": "Forgot Password?",
+  "lbl_forgot_password": "Forgot Password?",
   "lbl_forgot_your_login": "Forgot your login or password?",
 
   ///Intro Screen
@@ -41,6 +43,27 @@ final Map<String, String> enUs = {
   "lbl_device_fee": "Device Fee",
   "lbl_tax": "Tax",
   "lbl_debit": "Debit",
+  "lbl_prayer": "Prayer",
+  "lbl_azan": "Azan",
+  "lbl_iqama": "Iqama",
+  "lbl_pm": "PM",
+  "lbl_next_pray": "Next Pray",
+  "lbl_fajr": "Fajr",
+  "lbl_dhuhar": "Dhuhar",
+  "lbl_asr": "Asr",
+  "lbl_magrib": "Magrib",
+  "lbl_isha": "Isha",
+  "lbl_targeted_amount": "Targeted Amount",
+  "lbl_raised_amount": "Raised Amount",
+  "lbl_remaining_amount": "Remaining Amount",
+  "lbl_parking_project": "Parking Project",
+  "lbl_release_amount": "Release Amount",
+  "lbl_forecast_report": "Forecast Report",
+  "lbl_today": "Today",
+  "lbl_cloudy": "Cloudy",
+  "lbl_wind": "Wind",
+  "lbl_hum": "Hum",
+  "lbl_jumuah": "Jumu'ah",
 
   /// Network Error String
 

@@ -32,11 +32,17 @@ class CustomElevatedButton extends StatelessWidget {
         textStyle: textStyle,
         foregroundColor: foregroundColor ?? appTheme.white,
         backgroundColor: backgroundColor ?? appTheme.green900,
-        minimumSize: size ?? Size(width ?? double.maxFinite, height ?? 50.v),
-        maximumSize: size ?? Size(width ?? double.maxFinite, height ?? 50.v),
+        minimumSize:
+            size ?? Size(width ?? double.maxFinite, height ?? 50.adaptSize),
+        maximumSize:
+            size ?? Size(width ?? double.maxFinite, height ?? 50.adaptSize),
       ),
       onPressed: onPressed,
-      child: Text(name),
+      child: Center(
+        child: Text(
+          name,
+        ),
+      ),
     );
   }
 }

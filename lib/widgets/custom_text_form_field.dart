@@ -22,6 +22,8 @@ class Input extends StatelessWidget {
   final BoxConstraints? suffixIconConstraints;
   final BoxConstraints? prefixIconConstraints;
   final bool isDense;
+  final double radius;
+  final double padding;
 
   const Input({
     super.key,
@@ -34,6 +36,8 @@ class Input extends StatelessWidget {
     this.controller,
     this.suffixIcon,
     this.prefixIcon,
+    this.radius = 8,
+    this.padding = 8,
     this.maxLines = 1,
     this.filled = true,
     this.contentPadding,
@@ -72,21 +76,21 @@ class Input extends StatelessWidget {
         suffixIconConstraints: suffixIconConstraints,
         hintStyle: hintStyle ?? theme.textTheme.bodyLarge,
         fillColor: fillColor ?? theme.colorScheme.onPrimary,
-        contentPadding: contentPadding ?? EdgeInsets.all(12.adaptSize),
+        contentPadding: contentPadding ?? EdgeInsets.all(padding),
         border: borderDecoration ??
             OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(9.adaptSize),
+              borderRadius: BorderRadius.circular(radius),
             ),
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(9.adaptSize),
+              borderRadius: BorderRadius.circular(radius),
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(9.adaptSize),
+              borderRadius: BorderRadius.circular(radius),
             ),
       ),
     );

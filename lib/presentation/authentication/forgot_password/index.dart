@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '/core/app_export.dart';
 
-class SigninScreen extends StatefulWidget {
-  const SigninScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<SigninScreen> createState() => SigninScreenState();
+  State<ForgotPasswordScreen> createState() => ForgotPasswordScreenState();
 }
 
-class SigninScreenState extends State<SigninScreen> {
+class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   TextEditingController unController = TextEditingController();
   TextEditingController pwController = TextEditingController();
 
@@ -121,7 +121,7 @@ class SigninScreenState extends State<SigninScreen> {
                     SizedBox(
                       width: 158.h,
                       child: Text(
-                        "lbl_forgot_password".tr,
+                        "lbl_fogot_password".tr,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.clip,
                         style: TextStyles.headlineMedium.copyWith(

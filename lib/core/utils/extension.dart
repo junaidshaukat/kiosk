@@ -84,18 +84,75 @@ extension Assets on String {
     DateFormat inputFormat = DateFormat(pattern, locale);
     return inputFormat.parse(this);
   }
+
+  String get remove {
+    if (isNotEmpty) {
+      String str = substring(0, length - 1);
+      if (str.isEmpty) {
+        return '0';
+      } else {
+        return str;
+      }
+    } else {
+      return '0';
+    }
+  }
+
+  String get isFloat {
+    if (contains('.')) {
+      return this;
+    } else {
+      return '$this.';
+    }
+  }
+
+  String get number {
+    if (isNotEmpty) {
+      String str = replaceFirst(RegExp(r'^0+'), '');
+      if (str.isEmpty) {
+        return '0';
+      } else {
+        return str;
+      }
+    } else {
+      return '0';
+    }
+  }
+
+  String concat(String b) {
+    return '$this$b';
+  }
+
+  DateTime format([
+    String pattern = 'yyyy/MM/dd',
+    String? locale,
+  ]) {
+    final dateFormat = DateFormat(pattern, locale);
+    return dateFormat.parse(this);
+  }
 }
 
-const String dateTimeFormatPattern = 'dd/MM/yyyy';
-
-extension DateTimeExtension on DateTime {
-  String format({
-    String pattern = dateTimeFormatPattern,
+extension DateTimes on DateTime {
+  String format([
+    String pattern = 'yyyy/MM/dd',
     String? locale,
-  }) {
-    if (locale != null && locale.isNotEmpty) {
-      initializeDateFormatting(locale);
-    }
-    return DateFormat(pattern, locale).format(this);
+  ]) {
+    final dateFormat = DateFormat(pattern, locale);
+    return dateFormat.format(this);
+  }
+
+  bool get isFriday {
+    return weekday == DateTime.friday;
+  }
+
+  String get todayDDMM {
+    final day = DateFormat('d').format(this);
+    final month = DateFormat('MMMM').format(this);
+
+    // Construct the date string as "Today, 12 September"
+    final formattedDate = 'Today, $day $month';
+
+    // Return the formatted string
+    return formattedDate;
   }
 }

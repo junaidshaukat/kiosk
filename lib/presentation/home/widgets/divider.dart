@@ -10,8 +10,8 @@ class CustomDivider extends StatelessWidget {
   const CustomDivider({
     super.key,
     this.height = 1.5,
-    this.blurRadius = 1.2,
-    this.offset = const Offset(0, 1),
+    this.blurRadius = 2.5,
+    this.offset = const Offset(0, 2),
     this.color = const Color(0xFFE0E0E0),
     this.shadow = const Color(0XFF000000),
   });

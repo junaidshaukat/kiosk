@@ -163,12 +163,14 @@ class LightCodeColors {
 
   /// White
   Color get white => const Color(0XFFFFFFFF);
+  Color get white800 => const Color(0xFFF0F5F8);
 
   /// Black
   Color get black900 => const Color(0XFF000000);
 
   /// BlueGray
   Color get blueGray100 => const Color(0XFFD9D9D9);
+  Color get blue53 => const Color(0xFF3B3D53);
 
   /// Gray
   Color get gray100 => const Color(0XFFF3F4F4);
@@ -178,10 +180,21 @@ class LightCodeColors {
 
   /// Green
   Color get green900 => const Color(0XFF008000);
+  Color get green228 => const Color(0xFF00E228);
+  Color get green16 => const Color(0xFF007C16);
+  Color get green22 => const Color(0xFF089922);
 
   /// Lime
   Color get lime800 => const Color(0XFFBC903E);
+  Color get lime228 => const Color(0xFF70ADF0);
+  Color get lime16 => const Color(0xFF237BDD);
 
   /// Yellow
   Color get yellow800 => const Color(0XFFDB9E3B);
+  Color get yellow288 => const Color(0xFFF9C28A);
+  Color get yellow16 => const Color(0xFFF78008);
+
+  Color get unselect => const Color(0XFFD9D9D9);
+
+  Color get pale => const Color(0XFFE0F1F5);
 }

@@ -4,16 +4,26 @@ import '/core/app_export.dart';
 class CustomCarousel extends StatelessWidget {
   final bool reverse;
   final bool padEnds;
+  final double border;
+  final double radius;
+  final double? height;
   final int initialPage;
+  final double? fontSize;
   final List<Cause> items;
   final bool pageSnapping;
   final PageController controller;
   final EdgeInsetsGeometry? margin;
   final Function(int)? onPageChanged;
+  final void Function(int)? onPressed;
 
   const CustomCarousel({
     super.key,
     this.margin,
+    this.height,
+    this.fontSize,
+    this.onPressed,
+    this.border = 2,
+    this.radius = 2,
     this.onPageChanged,
     this.padEnds = false,
     this.reverse = false,
@@ -28,42 +38,47 @@ class CustomCarousel extends StatelessWidget {
     return PageView.builder(
       reverse: reverse,
       padEnds: padEnds,
-      itemCount: items.length,
       controller: controller,
+      itemCount: items.length,
       pageSnapping: pageSnapping,
       onPageChanged: onPageChanged,
       itemBuilder: (context, index) {
         Cause cause = items[index];
 
         return Container(
-          height: 420.adaptSize,
-          margin: EdgeInsets.symmetric(horizontal: 2.adaptSize),
+          height: height,
+          margin: margin ?? EdgeInsets.symmetric(horizontal: 2.adaptSize),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(radius),
             border: Border.all(
-              width: 4.adaptSize,
+              width: border,
               color: initialPage == index ? appTheme.primary : appTheme.white,
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomImageView(
-                fit: BoxFit.cover,
-                imagePath: cause.imagePath,
-              ),
-              Text(
-                cause.title,
-                textAlign: TextAlign.center,
-                style: TextStyles.headlineSmall.copyWith(
-                  fontSize: 34.fSize,
-                  color: appTheme.gray600,
-                  fontWeight: FontWeight.w700,
+          child: InkWell(
+            onTap: () {
+              onPressed!(index);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomImageView(
+                  fit: BoxFit.cover,
+                  imagePath: cause.imagePath,
                 ),
-              )
-            ],
+                Text(
+                  cause.label,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.headlineSmall.copyWith(
+                    fontSize: fontSize,
+                    color: appTheme.gray600,
+                    fontWeight: FontWeight.w700,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },

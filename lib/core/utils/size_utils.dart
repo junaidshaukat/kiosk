@@ -3,19 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '/core/app_export.dart';
 
-num fdw = 0; // reference width
-num fdh = 0; // reference height
-num fdsb = 0; // reference status bar height
-
 extension ResponsiveExtension on num {
   double get _width => SizeUtils.width;
   double get _height => SizeUtils.height;
 
   // Horizontal scaling factor
-  double get h => ((this * _width) / fdw);
+  double get h => _width * (this / 100.0);
 
   // Vertical scaling factor
-  double get v => (this * _height) / (fdh - fdsb);
+  double get v => _height * (this / 100.0);
 
   double get adaptSize {
     var height = v;
@@ -36,7 +32,7 @@ extension FormatExtension on double {
   }
 }
 
-enum DeviceType { phone, tablet, kiosk }
+enum DeviceType { mobile, tablet, desktop }
 
 enum PlatformType { android, ios, fuchsia, linux, macos, windows, other, web }
 
@@ -80,38 +76,8 @@ class Sizer extends StatelessWidget {
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            Size size = MediaQuery.of(context).size;
-
-            if (size.width < 834) {
-              SizeUtils.setScreenSize(
-                const Size(430, 932),
-                DeviceType.phone,
-                context,
-                constraints,
-                orientation,
-              );
-
-              return builder(context, orientation, SizeUtils.deviceType);
-            } else if (size.width < 1194) {
-              SizeUtils.setScreenSize(
-                const Size(932, 430),
-                DeviceType.tablet,
-                context,
-                constraints,
-                orientation,
-              );
-
-              return builder(context, orientation, SizeUtils.deviceType);
-            } else {
-              SizeUtils.setScreenSize(
-                const Size(1194, 834),
-                DeviceType.kiosk,
-                context,
-                constraints,
-                orientation,
-              );
-              return builder(context, orientation, SizeUtils.deviceType);
-            }
+            SizeUtils.setScreenSize(context, constraints, orientation);
+            return builder(context, orientation, SizeUtils.deviceType);
           },
         );
       },
@@ -141,29 +107,25 @@ class SizeUtils {
   static late double statusBarHeight;
 
   static void setScreenSize(
-    Size size,
-    DeviceType device,
     BuildContext context,
     BoxConstraints constraints,
     Orientation currentOrientation,
   ) {
-    deviceType = device;
     boxConstraints = constraints;
     orientation = currentOrientation;
+    Size size = MediaQuery.of(context).size;
     statusBarHeight = MediaQuery.of(context).padding.top;
 
-    if (orientation == Orientation.portrait) {
-      fdw = size.width;
-      fdh = size.height;
+    width = size.width;
+    height = size.height - statusBarHeight;
+    deviceType = _getDeviceType();
+  }
 
-      height = boxConstraints.maxHeight.isNonZero();
-      width = boxConstraints.maxWidth.isNonZero(defaultValue: fdw);
+  static DeviceType _getDeviceType() {
+    if (boxConstraints.maxWidth >= 600) {
+      return DeviceType.tablet;
     } else {
-      fdw = size.width;
-      fdh = size.height;
-
-      height = boxConstraints.maxWidth.isNonZero();
-      width = boxConstraints.maxHeight.isNonZero(defaultValue: fdh);
+      return DeviceType.mobile;
     }
   }
 }

@@ -130,9 +130,11 @@ class CustomStepper extends StatelessWidget {
   final double height;
   final double vertical;
   final double? fontSize;
+  final double? gap;
 
   const CustomStepper({
     super.key,
+    this.gap = 2,
     this.step = 0,
     this.fontSize,
     this.vertical = 8,
@@ -153,7 +155,7 @@ class CustomStepper extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: Steps.steps(step)
-                .map((s) => _buildStep(s, size, circle))
+                .map((s) => _buildStep(s, size, circle, gap))
                 .toList(),
           ),
         ),
@@ -161,7 +163,7 @@ class CustomStepper extends StatelessWidget {
     );
   }
 
-  Widget _buildStep(Steps s, Size size, Size circle) {
+  Widget _buildStep(Steps s, Size size, Size circle, double? gap) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -195,13 +197,13 @@ class CustomStepper extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 4.adaptSize),
+        SizedBox(height: gap),
         Text(
           s.label,
           style: TextStyle(
             color: s.text,
             fontSize: fontSize,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           child: Consumer<ThemeProvider>(
             builder: (context, provider, child) {
               return MaterialApp(
-                title: 'music',
+                title: 'kiosk',
                 debugShowCheckedModeBanner: false,
                 theme: theme,
                 navigatorKey: NavigatorService.navigatorKey,
